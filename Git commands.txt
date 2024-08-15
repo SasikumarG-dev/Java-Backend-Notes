@@ -1,0 +1,59 @@
+Git
+
+   -Distributed Version Control System
+
+
+Commands 			Description
+
+
+git init			Initializes a new Git repository in the current directory.
+git clone			<repository_url>	this Clones a repository from a remote server to your local machine.
+
+git add	<file>			Adds a specific file to the staging area.
+git add . or git add –all	Adds all modified and new files to the staging area.
+
+				Shows the current state of your repository, including tracked and untracked files, modified files, and branch information.
+git diff			Shows the changes between the working directory and the staging area (index).
+git diff --staged		Displays the differences between two commits.
+
+git commit			Creates a new commit with the changes in the staging area and opens the default text editor for adding a commit message.
+git commit -m “<message>”	Creates a new commit with the changes in the staging area and specifies the commit message inline.
+git reset <file> 		Remove file from the staging area but leave the working directory unchanged. This unstages a file without any changes.
+git mv				Moves or renames a file or directory in your Git repository.
+
+git branch			Lists all branches in the repository.
+git branch <branch-name>	Creates a new branch with the specified name.
+git branch -d <branch-name>	Deletes the specified branch.
+git branch -a			Lists all local and remote branches.
+git branch -r			Lists all remote branches.
+git checkout <branch-name>	Switches to the specified branch.
+git checkout -b <new-branch-name>	Creates a new branch and switches to it.
+git merge <branch>		Merges the specified branch into the current branch.
+
+git log				Displays the commit history of the current branch.
+git log <branch-d		Displays the commit history of the specified branch.
+git log –follow <file>		Displays the commit history of a file, including its renames.
+git log –all			Displays the commit history of all branches.
+
+git stash			Stashes the changes in the working directory, allowing you to switch to a different branch or commit without committing the 				changes.
+git stash list			Lists all stashes in the repository.
+
+
+git fetch			Retrieves change from a remote repository, including new branches and commit.
+git fetch <remote>		Retrieves change from the specified remote repository.
+git pull			Fetches changes from the remote repository and merges them into the current branch.
+git pull <remote>		Fetches changes from the specified remote repository and merges them into the current branch.
+git pull –rebase		Fetches changes from the remote repository and rebases the current branch onto the updated branch.
+git push			Pushes local commits to the remote repository.
+git push <remote>		Pushes local commits to the specified remote repository.
+git push –all			Pushes all branches to the remote repository.
+git remote			Lists all remote repositories.
+
+
+git revert <commit>		Creates a new commit that undoes the changes introduced by the specified commit.
+
+
+git merge <branch-name>		Merges the specified branch into the branch you’re currently on.
+git merge --squash <branch-name>	Combines all the changes from the specified branch into a single commit on the current branch. It will be in stage 					area you need to commit and push the changes manually.
+git merge --abort		Cancels an in-progress merge and returns to the state before the merge started
+git merge --no-ff -m "Merge commit message" <branch-name>	Merges the specified branch into the current branch and creates a merge commit.

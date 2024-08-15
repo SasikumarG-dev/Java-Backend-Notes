@@ -1,0 +1,30 @@
+CLI commands:
+
+Commands	Description
+
+dir		-	Lists the contents of a directory. Example: dir
+cd		-	Changes the current directory. cd Documents
+cls		-	Clear the Command Prompt screen. Example: cls
+title		–	Changes the Command Prompt Window Title. Example: title botCLI 
+mkdir		-	Creates a new directory. mkdir Test
+rmdir		-	Removes a directory (must be empty). rmdir Test
+copy		-	Copy files or directories. Example: copy file1.txt file2.txt
+move		-	Move files or directories. Example: move file1.txt Documents
+start		-	Open a file or run a program. Example: start notepad.exe or start https://www.youtube.com/
+ipconfig	-	Display network configuration information. Example: ipconfig
+systeminfo	-	Display system information. Example: systeminfo
+tasklist	-	Display a list of running processes. Example: tasklist
+taskkill	-	End a running process. Example: taskkill /pid 1234
+shutdown	-	Shut down or restart the computer. Example: shutdown /r
+echo		-	Display a message on the screen. Example: echo Hello World!
+type		-	Display the contents of a file. Example: type file1.txt
+del		-	Delete files. Example: del file1.txt
+color		–	Changes the Text Color of the Command Prompt. Example color attr(give the list of colors) : color 0
+ver		–	Shows the Version of the OS. Example: ver			
+tree		–	Shows the Tree of the Current Directory or Specified Drive
+date		–	Shows and Changes the Current Date
+time		–	Shows and Changes the Current Time
+ren		–	Renames a File. Example: ren file.txt new-file.txt
+exit		–	Closes the Command Linet. Example: exit
+shutdown	–	Shuts down, Restarts, Hibernates, Sleeps the Computer. Example: shutdown
+help		-	Show the list of all commands. Example: help

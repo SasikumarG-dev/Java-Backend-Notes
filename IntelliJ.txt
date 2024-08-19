@@ -1,0 +1,12 @@
+IntelliJ
+
+Indexing:
+
+Indexing in IntelliJ is responsible for the core features of the IDE:
+*code completion(suggest variable names), inspections(bool always returns false or unused variables), finding usages, navigation, syntax and error highlighting, and refactoring.
+
+It starts when you open your project, switch between branches, after you load or unload plugins, and after large external file updates. For example, this can happen if multiple files in your project are created or generated after you build your project.
+
+IntelliJ IDEA also indexes project dependencies, including JDKs, libraries, and files that may be added to indexing by different plugins. This is necessary to provide the coding assistance functionality, search, and navigation instantaneously. After indexing, the IDE is aware of your code. That is why actions like finding usages or smart completion are performed immediately.
+
+While indexing is in progress, the above-mentioned coding assistance features are unavailable or partially available. Nevertheless, you can still work with the IDE: you can type code, work with VCS features, configure settings, and perform other code-unrelated actions.

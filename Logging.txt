@@ -1,0 +1,96 @@
+Logging:
+
+* Used to record information of the application which is up on running.
+* Understand the behaviour and recognize the issue in the application.
+
+Logging Levels:
+
+ TRACE ->
+
+    * For detailed information.
+    * Trace every single method call and variable change.
+    * Eg: logger.trace("Entering method calculateInterest with parameters principal={}, rate={}, time={}", principal, rate, time);
+          double interest = principal * rate * time;
+	  logger.trace("Calculated interest: {}", interest);
+ 
+ DEBUG ->
+    
+    * Log information useful for debugging but not as detailed as TRACE.
+    * Can add states of the application.
+    * Eg: logger.debug("User {} logged in at {}", username, loginTime);
+	  logger.debug("User {} is authenticated", username);
+
+ INFO ->
+
+    * General information about the application's operation. Suitable for production logs to track high-level operations.
+    * Eg: logger.info("Application started successfully.");
+	  logger.info("User {} has registered with email {}", username, email);
+
+ WARN ->
+
+    * Situations that are unexpected or may cause problems but the application can still continue.
+    * Eg: logger.warn("Configuration property 'app.timeout' is missing. Using default value of 30 seconds.");
+	  logger.warn("User {} attempted to login with a weak password. Consider enforcing stronger password policies.", username);
+    * In my Gaming application warn can be used while generating gamecode. If gamecode already there in db it generates again.
+      So we can use warn here that the game code already present in db.
+    * Use of deprecated APIs, poor use of API, 'almost' errors, other runtime situations that are undesirable or unexpected, but not necessarily "wrong".
+      Expect these to be immediately visible on a status console
+
+ ERROR ->
+
+    * Errors that might allow the application to continue running but should be investigated.
+    * Eg: try {
+    	      // some code that might throw an exception
+	  } catch (Exception e) {
+              logger.error("Error occurred while processing request: {}", e.getMessage());
+	  }
+
+ FATAL ->
+
+    * Severe errors that will likely lead to the application aborting.
+    * Eg: logger.fatal("Failed to connect to the database. Shutting down the application.", e);
+	  logger.fatal("Service failure. The application cannot continue to operate.", e);
+
+
+
+java.util.Logger:
+
+- java has Logger class to write up the logs since JDK 1.4
+- It has three levels(info, severe, fine).
+- But it has performance and flexibility issues for developers.
+- Then came Log4j
+
+Log4j:
+
+- It has 7 levels(All, Debug, Info, Warn, Error, Fatal, Off, Trace)
+- It has appenders and formatters with it.
+- Appenders like console logging, File logging, DB logging, Rolling file(Daily logging), etc..
+- Format the log message based on your need.
+
+SLF4J:
+
+- It as interface and it acts as an interface between your code and logging framework.
+- It only has the methods signature and the logging framework has the implementation of that method.
+- It like JPA repository.
+- Loose coupling.
+- When you have a framework with Logback implemented in it and if you are using it in your code which has
+  log4j implemented in it, then two dependencies are needed here. That's where Slf4j plays a vital role.
+  
+LogBack:
+
+ - Popular framework which it binded with spring-starter-web dependencies.
+ - Default logging level - INFO
+ - You can add different levels for specific packages.
+ - Configuring log for the application can be done via XML configuration. Spring automatically looks for 
+   logback-spring.xml/ logback.xml file for logging configuration.
+
+
+Feature						Log4j2						Logback
+
+Performance				High, especially with async			High, but less than Log4j2
+Asynchronous Logging			Supported and highly optimized			Supported
+Configuration Formats			XML, JSON, YAML, properties			XML, Groovy
+Automatic Reconfiguration		Not built-in					Built-in (dynamic configuration without restarting application)
+Conditional Logging			Supported via filters				Supported via if/else
+Library Size				Larger						Smaller
+

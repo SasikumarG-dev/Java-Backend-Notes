@@ -1,0 +1,117 @@
+SQL:
+
+ACID properties:
+
+Atomicity:
+ -  Atomicity ensures that a transaction is treated as a single, indivisible unit. Either all of the operations in the transaction are completed, or none of 
+    them are.
+ - Eg: Suppose if we are inserting or deleting 10 records. If the transaction fails at 9th record, it completely roll back the previous transactions.
+       And if we start the transaction again it will not continue from the previous one.
+
+Consistency:
+
+ - Consistency ensures that a transaction brings the database from one valid state to another valid state.
+ - The database must always follow the rules (constraints, triggers, etc.) set up to maintain its integrity.
+ - A transaction must leave the database in a consistent state after it completes, following all defined rules (like foreign key constraints, unique
+   constraints, etc.)
+ - Example: In a database with a constraint that a balance cannot be negative, if an operation tries to withdraw more money than is in the account, the 
+   transaction will fail, ensuring the database's consistency.
+
+
+Isolation:
+
+ - Isolation ensures that the operations of a transaction are isolated from other transactions running at the same time.
+ - The actions of one transaction should not be visible to other concurrent transactions until the transaction is committed.
+ - Example: Two customers trying to book the last available seat on a flight should not be able to see each other's uncommitted changes.
+
+Durability:
+
+ - Durability ensures that once a transaction is committed, its changes are permanent, even in the event of a system crash or power failure.
+ - Committed changes are saved permanently to non-volatile storage.
+ - Example: After a transaction to transfer money between bank accounts is committed, the changes (the debit and credit) must still be reflected in the 
+   database even after a system crash or restart
+
+In SQL, operations on databases are broadly categorized into several types of commands based on their function. The main categories are DDL, DML, DCL, TCL, and DQL. Here's a breakdown of each:
+
+1. DDL (Data Definition Language):
+  * Used to define and modify the structure of the database objects such as tables, indexes, and schemas.
+
+  CREATE:
+	 Creates a new database object (e.g., table, view, index).
+	 Example: CREATE TABLE customers (id INT, name VARCHAR(50));
+  ALTER: 
+	Modifies an existing database object (e.g., add a column, modify a column).
+	Example: ALTER TABLE customers ADD COLUMN email VARCHAR(100);
+	Example: ALTER TABLE customers DROP COLUMN email;
+	Example: ALTER TABLE customers MODIFY COLUMN name VARCHAR(20)
+	Example: ALTER TABLE customers RENAME COLUMN name to customer_name 
+  DROP: 
+	Deletes a database object.
+	Example: DROP TABLE customers;
+  TRUNCATE:
+	Removes all rows from a table but keeps the structure for future use.
+	Example: TRUNCATE TABLE customers;
+  RENAME:
+	Rename a table.
+	Example: RENAME TABLE customers TO premium_customers
+
+
+2. DML (Data Manipulation Language):
+ * Used to manipulate the data stored in the database.
+
+  INSERT: 
+	Adds new data into a table.
+	Example: INSERT INTO customers (id, name, email) VALUES (1, 'John Doe', 'john@example.com');
+  UPDATE: 
+	Modifies existing data within a table.
+	Example: UPDATE customers SET email = 'john.doe@example.com' WHERE id = 1;
+  DELETE: 
+	Removes data from a table.
+	Example: DELETE FROM customers WHERE id = 1;
+
+
+
+3. DCL (Data Control Language):
+ * Used to control access to data in the database.
+
+  GRANT: 
+	Gives users access privileges to the database.
+	Example: GRANT SELECT, INSERT ON customers TO user_name;
+  REVOKE: 
+	Removes users' access privileges.
+	Example: REVOKE INSERT ON customers FROM user_name;
+
+
+
+4. TCL (Transaction Control Language):
+ * Used to manage transactions within the database, ensuring that they are processed reliably.
+
+  COMMIT: 
+	Saves the transaction changes to the database.
+	Example: COMMIT;
+  ROLLBACK: 
+	Reverts the transaction changes before they are committed.
+	Example: ROLLBACK;
+  SAVEPOINT:
+	Sets a savepoint within a transaction, allowing partial rollbacks.
+	Example: SAVEPOINT savepoint1;
+  SET TRANSACTION: 
+	Sets the transaction properties, like isolation level.
+	Example: SET TRANSACTION ISOLATION LEVEL SERIALIZABLE;
+
+5. DQL (Data Query Language):
+ * Used to query or retrieve data from a database.
+
+  SELECT: 
+	Retrieves data from one or more tables.
+	Example: SELECT * FROM customers;
+
+
+
+
+
+
+
+MySQL Doc:
+
+https://dev.mysql.com/doc/

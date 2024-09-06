@@ -1,0 +1,117 @@
+React:
+
+ - Open source JavaScript library for building user interfaces.
+ - Ask React what you want and react will do it for you.
+
+Create React App:
+
+ - npx create-react-app <project-name>
+ - This is the command to create the react application. Here npx is the npm package runner.
+
+package.json:
+
+ - contain the scripts and the dependencies required for the project.
+
+Components:
+
+ - Parts of User Interface.
+ - We have App(Root) Component which is divided into Header, SideNav, Main content, Footer.
+ - Components can be reusable.
+
+i) Functional components
+
+ * Functional components are plain JavaScript functions that return JSX. They are also known as stateless components (though with React Hooks, they can now
+   manage state) 
+ * Functional components are simpler and easier to write. They don't require a class, this keyword, or lifecycle methods.
+ * Historically, functional components were considered more performant because they didn’t involve the overhead of class instances, though in modern React,
+   the difference is negligible
+ * Eg: 
+	function Home(props) {
+  		return <h1>Welcome Home!</h1>;
+	}
+	
+	const Home = () => <h1>Welcome to Home Page</h1>;
+
+
+ii) Class components
+
+ * Class components are ES6(ECMAScript 6 - updated JS) classes that extend from React.Component. They have a render method that returns JSX.
+ * Class components use the this keyword to access props, state, and methods.
+ *  Class components tend to have more boilerplate code compared to functional components.
+ * Eg:
+	class Greeting extends React.Component {
+  	   render() {
+    	      return <h1>Hello, {this.props.name}!</h1>;
+ 	    }
+	}
+
+
+JSX (JavaScript XML):
+
+ * Extension of JavaScript language.
+ * Allows to write HTML in react.
+ * Makes your code simple and eleganct.
+ * Eg: 
+	const Home = () => <h1>Welcome to Home Page</h1>;
+
+	export default Home;
+ 
+ * But in normal Js we not write like 
+	React.createElement('div', null, React.createElement('h1',null, 'Welcome to Home Page'))
+ * It is difficult to write and understand in normal js .
+ * JSX anyway transform our code to JS which is understood by the browsers. That is why we are importing React at every component though we haven't used
+   the React library explicitly.
+ * The JSX should have only one wrapper elements(<div></div>) or fragments(<></>).
+
+Props:
+
+ * They are properties where data can be transferred from one component to another.
+ * Props are immutable.
+ * Eg: {this.props.name}
+
+States:
+
+ * state is managed within the component and it can be changed.
+ * Variables are declared inside the function body.
+ * useState Hook - functional components
+   this.state - class components
+ * To modify the state use setState method, because react does not allow UI to render this.state
+
+
+
+
+Hooks:
+
+ * Hooks let us to use state and other React features in functional component without using Class.
+
+ i) useState()
+
+ * To make the state value rendered everytime in the UI we use useState() function.
+ * Eg:
+
+	import React, {useState} from "react";
+
+	const Hook = () =>{
+	    let x = 100;
+
+	    let [num, setNum] = useState(x);
+	    const increment = () =>{
+ 	       setNum(currVal => currVal+1)
+        
+ 	   }
+ 	   return(
+	        <div>
+        	    <h1>{num}</h1>
+	            <button onClick={increment}>Add</button>
+        	</div>
+  	  );
+	}
+
+	export default Hook;
+
+ * Here useState() return the array[variabale, function] which we need to destructure.
+ 
+
+ii) useEffect()
+
+

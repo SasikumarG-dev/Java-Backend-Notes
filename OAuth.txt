@@ -1,0 +1,80 @@
+OAuth 2:
+
+ * OAuth 2.0 is an authorization framework that allows third-party applications to obtain limited access to a user's resources without exposing 
+   their credentials widely used to enable single sign-on (SSO) and to allow applications to interact with APIs on behalf of users.
+
+Eg:
+
+
+End User ---------> Photo Editor -----------> Google Photos 
+
+- Here the User want to use the photo editor application to edit some of his photos. For that it is asking google photos to give photos. If we give the
+  photo editor, the full access of the google photos then there is a chance that they will misuse end user's data. So Google photos will give the access
+  token to the editor app with some permission(like read only). Now the editor will download the photo and edit it without misusing the user's data.
+  The access token is like the access card in the office.
+
+
+Terminologies:
+
+Resource Owner  
+ - The user who owns the data. In photo editor example the end user is the resource owner.
+
+Client
+ - Application which reads the resource owner's resources. Photo editor is the client here.
+
+Authorization Server
+ - It is a server which knows about the resource owner. It issues access tokens to the client after authenticating the resource owner.
+   Google auth server is the Authorization server here. It stores end user credentials, authentication and issues access token.
+
+Resource Server
+ - A server which contains user's resources like api or services. Client will consume this api or services and they will do the necessary actions.
+   Google photos server is the resource server here.
+
+Scopes
+ - Permissions given by the auth server to the client.
+
+
+
+Authorization Code Grant Type:
+
+
+
+     User					Client 				Auth Server			 Resource Server
+
+      | ---Needs to access the resource (1)--->	  |				     |					|
+      |						  |				     |					|
+      |	<--- Connect with auth server (2)------	  |				     |					|
+      |						  |				     |					|
+      |		Hello Auth server pls allow client to access my resources.	     |					|
+      |			Here are my credentials(3)			             |					|
+      |	-------------------------------------------------------------------------->  |					|
+      |						  |				     |					|
+      |						  |  Hey client, User allowed you to |					|
+      |						  |	access his resource. Here is |					|
+      |						  |	   AUTHORIZATION CODE.(4)    |					|
+      |						  | <------------------------------- |					|
+      |						  |				     |					|
+      |						  |  Here are my credentials(client  |					|
+      |						  |  id, client secret) and AUTH     |					|
+      |						  |  CODE. Give me ACCESS TOKEN(5)   |					|
+      |						  | -------------------------------> |					|
+      |						  |				     |					|
+      |						  |  (6) Here is your ACCESS TOKEN   |					|
+      |						  | <------------------------------  |					|
+      |						  |				     |					|
+      |						  |				     |					|
+      |						  |	Hey Resource Server, I want to access User's resources.		|
+      |						  |			Here is the ACCESS TOKEN (7)			|
+      |						  | ------------------------------------------------------------------>	|
+      |						  |				     |					|
+      |						  |				     |					|
+      |						  |				     |					|
+      |						  |  (8) Your Token is validated successfully. Here are your resource   |
+      |						  | <------------------------------------------------------------------	|
+      |						  |				     |					|
+      |						  |				     |					|
+      |						  |				     |					|
+      |						  |				     |					|
+      |						  |				     |					|
+
+ * Here the Auth server first verifies the end user and then it verifies the client. It is been implemented like this for better security reasons.

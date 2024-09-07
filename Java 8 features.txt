@@ -1,0 +1,71 @@
+Java 8 features:
+
+
+Default methods in Interface:
+
+ - Before Java 8 we can only add abstract methods in interface. But in Java 8 they introduced default methods in interface where we can execute method logic
+   in the interface.
+ - It is not necessary to override default methods. 
+ - It will be like default for the classes which implements it. If we want to change the logic of the method in any classes we can override now and 
+   implement the method logic in the class.
+ - Example: We have Student interface which has studentName() as abstract method and studentDress() as default method. We also have two classes
+   NurseryStudent and PrimaryStudent which implements the Student interface. As usual the abstract method will be overridden by each classes and that is not a 
+   problem here. The default method studentDress() has a print statement as "Uniform". Now in the Nursery they are allowed to wear color dress. So override 
+   the default method and add "Color Dress" in NurseryStudent class. Now the NurseryStudent object will be calling the overridden method whereas the 
+   PrimaryStudent object will use the defauld method.
+
+Static methods in Interface:
+
+ - We can also declare static methods inside interface. But this static method cannot be overridden in implementation class.
+ - If we want to call the static method in interface we have call with interface name(Ex. Interface.staticMethod()).
+ - We can also have main method inside interface and execute. It will execute and will not show compile time error.
+
+
+Method Reference:
+
+ - Method reference is used to refer method of functional interface.
+ - It is compact and easy form of lambda expression.
+ - The biggest advantage of using method reference is CODE REUSABILITY. Because we can declare method logic once and the method in the functional interface 
+   can refer to the declared method whenever needed without duplicating the code.
+ - The referenced method should have the SAME ARGUMENTS as the method in the functional interface.
+ - Types of Method Reference:
+	1.Reference to a static method.
+	2. Reference to an instance method.
+	3. Reference to a constructor.
+
+ - Eg(referring to instance method): 
+	Interface Student{
+		public void m1();
+	}
+	Class NurseryStudent{
+		public void studentMethod(){
+			System.out.println("Hi Nursery Students");
+		}
+	}
+	Class Main{
+		public static void main(String []args){
+			NurseryStudent ns = new NurseryStudent(); // creating instance 
+			Student student =  ns :: studentMethod;   // referring the instance method to the method in function interface
+			student.m1();
+		}
+	}
+ - Here when calling student.m1(), m1() refers to the studentMethod(). Instead of implementing the functional interface method, we are referring to the 
+    method which is already declared. We are reusing the existing method code here.
+
+ - Eg(constructor reference):
+	Interface Student{
+		public NurseryStudent get();
+	}
+	Class NurseryStudent{
+		NurseryStudent(){
+			System.out.println("Hi Nursery Students");
+		}
+	}
+	Class Main{
+		public static void main(String []args){
+			Student student  = NurseryStudent :: new;
+			student.get();
+		}
+	}
+ - Here the functional interface has a method which has return type NurseryStudent. The method get() is referred to the constructor of the NurseryStudent.
+   So when we call the get method it is referring to the constructor.

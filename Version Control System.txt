@@ -1,0 +1,57 @@
+Version Control System:
+
+ * VCS is a tool that helps you manages the source code.
+ * It tracks modification, revert to previous versions, collaborate with team members.
+ * A version control system is a kind of software that helps the developer team to efficiently communicate and manage(track) 
+   all the changes that have been to the source code along with the information like who made and what changes have been made.
+
+Key Concepts:
+
+	- Repository: The storage location for your project’s files and their version history.
+	- Commit: A snapshot of changes made to the files. Each commit has a unique identifier.
+	- Branch: A parallel version of the project. Branches allow you to work on features or fixes independently of the main codebase.
+	- Merge: The process of integrating changes from one branch into another.
+	- Conflict: Occurs when changes in different branches affect the same part of a file and need to be resolved manually.
+
+Types:
+i)  Centralized Version Control System
+	- It contain just one repository globally and every user need to commit one’s changes in the remote repository.
+	- Other can view their commits and they can update in their working copy of the project.
+
+				  Repository
+ 				 //          \\
+			 commit // update     \\
+			       //  	       \\
+			 Working copy      working copy
+
+ii) Distributed Version Control System
+	- It contain one global repository and multiple local repositories cloned in our local machine.
+	- Committing in our local repository will not be visible to others unless we push that in Remote or Global repository.
+
+
+				   Repository
+ 				 //          \\
+			   push	// pull       \\
+			       //  	       \\
+			 Local Repo        Local Repo
+			     //			 \\
+		      commit//update		  \\
+			   //			   \\
+			Working copy         Working copy
+
+
+Popular VCS:
+
+* Git (DVCS)
+* Subversion (CVCS)
+* Mercurial (DVCS)
+
+
+Before VCS:
+
+1. Manual Backup 
+	- copying in floppy disc, some drives, etc...
+2. Handwritten Logs
+	- File modification logs are handwritten like who did the modification for specific files.
+3. Manual merging
+	- If two developers worked on same file, they have to sit together to resolve the changes on that file manually.

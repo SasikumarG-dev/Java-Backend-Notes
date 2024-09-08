@@ -1,6 +1,73 @@
 Java 8 features:
 
 
+Functional Programming:
+ - Makes code more concise, less complex, more predictable, and easier to test compared to the legacy style of coding.
+ - The functions can be passed as arguments to other functions, returned from other functions, and assigned to variables.
+ - Example:
+        - Function<String, Integer> lengthFunction = String::length;  // Method reference
+	- the length() function is assigned to a variable lengthFunction.
+ - Lambda expressions allow you to write the function’s logic in-line without having to create a whole class or method.
+
+
+
+Functional Interface:
+
+ - It is an interface which contains only on abstract method and any number of static and default methods.
+ - These interfaces can be implemented by a lambda expression or a method reference.
+ - Also known as SAM(Single Abstract Method) interface.
+Why Functional interface has been introduced?
+
+ - Reducing Boilerplate Code with Anonymous Inner Classe
+ - Enabling Functional Programming
+ - Simplifying Operations with Streams API
+
+Why Functional interface should have only one abstract method?
+
+ - If there were more than one abstract method, it would be ambiguous as to which method the lambda expression should implement.
+ - Since there is only one abstract method, the compiler knows exactly which method the lambda is implementing.
+
+
+Functional Interface with Inheritance:
+
+   @FunctionalInterface					@FunctionalInterface					@FunctionalInterface	
+   interface Teacher{					interface Teacher{					interface Teacher{
+		public void m1();				public void m1();					public void m1();
+	}						}							}
+   @FunctionalInterface					@FunctionalInterface					@FunctionalInterface
+   interface Professor extends Teacher{			interface Professor extends Teacher{			interface Professor extends Teacher{
+	}							public void m1();					public void m2();
+							}							}
+ 
+  - Valid functional interface because			- Valid functional interface because			- InValid functional interface because	
+    both contains one abstract methods.			  both contains same abstract methods.			  both contains different abstract methods.
+
+
+
+
+Lambda Expression:
+
+ - Lambda expression is used to provide the implementation of functional interface.
+ - Reduced boilerplate code: No need for anonymous classes.
+ - Particularly useful with Java 8 APIs like the Streams API and functional interfaces.   
+ Syntax:
+	(parameters) -> expression
+	(parameters) -> { statement(s); }
+
+ - Example
+ 	interface Student{
+		public void get();
+	}
+	Class Main{
+		public static void main(String[] args){
+			Student student  = () -> System.out.println("He/She is a Student")
+			student.get(); // prints He/She is a Student
+		}
+	}
+
+
+
+		
 Default methods in Interface:
 
  - Before Java 8 we can only add abstract methods in interface. But in Java 8 they introduced default methods in interface where we can execute method logic
@@ -34,7 +101,7 @@ Method Reference:
 	3. Reference to a constructor.
 
  - Eg(referring to instance method): 
-	Interface Student{
+	interface Student{
 		public void m1();
 	}
 	Class NurseryStudent{
@@ -53,7 +120,7 @@ Method Reference:
     method which is already declared. We are reusing the existing method code here.
 
  - Eg(constructor reference):
-	Interface Student{
+	interface Student{
 		public NurseryStudent get();
 	}
 	Class NurseryStudent{

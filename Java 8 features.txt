@@ -158,6 +158,7 @@ Components of the stream are:
  - Single Terminal Operation that produces the result
 
 Intermediate Operations:
+
 i) filter()
 
  - The filter() method in Java Streams which is used to filter elements based on a condition.
@@ -265,3 +266,24 @@ How and Why Java streams are LAZY?
 	- Efficiency: Laziness allows streams to be more efficient because intermediate operations are only executed when needed. For example, if you're 	  filtering a list but only need the first few results, the stream doesn't have to process the entire list.
 	- Composability(combine different components): You can chain multiple operations without any computation happening until you finalize the stream 
 	  with a terminal operation. This makes streams flexible and allows you to build complex data pipelines step by step.
+
+
+
+6. Date and Time API:
+
+ - In Java 8, the java.time package introduced a completely new and improved API for working with dates and times.
+ - It replaces the older java.util.Date and java.util.Calendar classes, providing immutable, and thread-safe approach for handling date and time.
+ - Key Classes in java.time:
+	- LocalDate: Represents a date (year, month, day) without time.
+	- LocalTime: Represents a time (hour, minute, second, nanosecond) without a date.
+	- LocalDateTime: Represents both date and time, but without a time zone.
+	- ZonedDateTime: Represents a date and time with a time zone.
+	- Instant: Represents a timestamp (a moment in time) from the epoch (1970-01-01T00:00:00Z).
+	- Duration and Period: Represent the amount of time between two instants (Duration) or dates (Period).
+	- DateTimeFormatter: Used for formatting and parsing dates and times.
+
+7. Optional:
+
+ - In Java 8, Optional is a container class that helps manage the absence of a value (i.e., null) in a more explicit and safer way. 
+ - It is used to prevent NullPointerException and makes the code more readable.
+ - To check whether the is null or not, no need of explicit code. The Optional class itself has inbuilt methods.	

@@ -11,7 +11,7 @@ Functional Programming:
 
 
 
-Functional Interface:
+1. Functional Interface:
 
  - It is an interface which contains only on abstract method and any number of static and default methods.
  - These interfaces can be implemented by a lambda expression or a method reference.
@@ -45,11 +45,17 @@ Functional Interface with Inheritance:
 
 
 
-Lambda Expression:
+2. Lambda Expression:
 
  - Lambda expression is used to provide the implementation of functional interface.
  - Reduced boilerplate code: No need for anonymous classes.
  - Particularly useful with Java 8 APIs like the Streams API and functional interfaces.   
+
+Features of a lambda expression:
+
+ - Lambda expressions can be passed as a parameter to another method. 
+ - Lambda expressions can be standalone without belonging to any class.
+
  Syntax:
 	(parameters) -> expression
 	(parameters) -> { statement(s); }
@@ -68,7 +74,7 @@ Lambda Expression:
 
 
 		
-Default methods in Interface:
+3. Default methods in Interface:
 
  - Before Java 8 we can only add abstract methods in interface. But in Java 8 they introduced default methods in interface where we can execute method logic
    in the interface.
@@ -88,7 +94,7 @@ Static methods in Interface:
  - We can also have main method inside interface and execute. It will execute and will not show compile time error.
 
 
-Method Reference:
+4. Method Reference:
 
  - Method reference is used to refer method of functional interface.
  - It is compact and easy form of lambda expression.
@@ -136,3 +142,126 @@ Method Reference:
 	}
  - Here the functional interface has a method which has return type NurseryStudent. The method get() is referred to the constructor of the NurseryStudent.
    So when we call the get method it is referring to the constructor.
+
+
+
+
+5. Streams:
+
+ - Process sequence of data or elements in collections.
+ - It is an interface present inside java.util.stream package.
+ - stream() method is present inside collection interface as default method(Stream s = collectors.stream()).
+
+Components of the stream are:
+ - A data source
+ - Set of Intermediate Operations to process the data source
+ - Single Terminal Operation that produces the result
+
+Intermediate Operations:
+i) filter()
+
+ - The filter() method in Java Streams which is used to filter elements based on a condition.
+ - It accepts Predicate interface as parameter.
+ - It is an Intermediate Operation.
+ - Syntax: Stream<T> filter(Predicate<? super T> predicate);
+ - Example: List<Integer> processedList = list.stream() .filter( x -> x > 100).toList();
+
+
+ii) map()
+
+ - The map operation transforms each element of a stream by applying a function to it.
+ - Create new object from the existing object every time. 
+ - It accepts Function interface as a parameter.
+ - It is an Intermediate Operation.
+ - Syntax: <R> Stream<R> map(Function<? super T, ? extends R> mapper);
+ - Example: List<String> upperCaseNames = names.stream().map(String::toUpperCase).toList();
+
+iii) sorted()
+
+ - Sorts elements in natural order or by a custom comparator.
+ - Example: List<String> sortedNames = names.stream().sorted().toList();
+	    List<String> sortedNames = names.stream().sorted(Comparator.reverseOrder()).toList(); // sort in reverse order.
+
+iv) distinct()
+ - Removes duplicate elements from the collections.
+ - Example: List<String> uniqueList = list.stream().distinct().toList();
+
+v) limit()
+ - Limits the number of elements in the stream.
+ - Example: List<String> uniqueList = list.stream().limit(2).toList(); // create a list of size 2
+
+vi) skip()
+ - Skips the number of elements in the stream.
+ - Example: List<String> uniqueList = list.stream().skip(2).toList(); // skips the first three elements in the list and creates new list
+
+
+Terminal Operations:
+
+i) collect()
+ - Collects the elements into a collection or other types.
+ - Example:  - Example: List<String> uniqueList = list.stream().distinct().collect(Collectors.toList());
+
+ii)forEach()
+ - The forEach method is used to iterate through every element of the stream.
+ - Example: names.stream().forEach(System.out::println);
+
+iii) count()
+ - Counts the number of elements in the stream.
+ - long count = names.stream().filter(name -> name.startsWith("A")).count();
+
+iv) max() and min()
+ - Finds the maximum or minimum value.
+ - Example: Optional<Integer> max = numbers.stream().max(Integer::compareTo);
+	    Optional<Integer> min = numbers.stream().min(Integer::compareTo);
+
+v) reduce()
+ - The reduce operation in Java Streams is a powerful terminal operation that combines the elements of a stream into a single result. 
+ - It’s often used to perform operations like summing numbers, concatenating strings, or accumulating values based on a specific logic.
+ - Example: List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5);
+	        int sum = numbers.stream().reduce(0, (a, b) -> a + b);
+        	System.out.println("Sum: " + sum);
+
+vi) allMatch() anyMatch() noneMatch()
+ - return true if it matches condition or not
+ - Example: names.stream().allMatch(s -> s.contains("a")); // return true if all the string in the collection matches "a"
+	    names.stream().anyMatch(s -> s.contains("a")); // return true if any of the string in the collection matches "a"
+	    names.stream().noneMatch(s -> s.contains("a")); // return true if none of the string in the collection matches "a"
+
+
+
+
+How and Why Java streams are LAZY?
+
+ - Intermediate operations don't execute until a terminal operation is invoked.
+ - Consider the following code:
+
+	List<String> names = Arrays.asList("Alice", "Bob", "Charlie", "David", "Eve");
+
+	Stream<String> nameStream = names.stream()
+ 	   .filter(name -> {
+ 	       System.out.println("Filtering: " + name);
+        	return name.length() > 3;
+  	  });
+
+	System.out.println("Stream pipeline set up but not executed yet.");
+	nameStream.collect(Collectors.toList());
+ 
+ - Output of the code:
+
+	Stream pipeline set up but not executed yet.
+	Filtering: Alice
+	Filtering: Bob
+	Filtering: Charlie
+	Filtering: David
+	Filtering: Eve
+
+ - Explanation:
+	- When you call .filter(name -> name.length() > 3), nothing happens immediately.
+	- The stream doesn’t process the elements right away. Instead, the filter operation is added to the stream's internal pipeline.
+	- This setup is lazy, meaning Java is just "preparing" to filter the names, but it hasn't done any actual filtering yet.
+	- At this point, no filtering logic is applied, and you won’t see the "Filtering" print statements yet.
+
+ - Why is Laziness Useful?
+	- Efficiency: Laziness allows streams to be more efficient because intermediate operations are only executed when needed. For example, if you're 	  filtering a list but only need the first few results, the stream doesn't have to process the entire list.
+	- Composability(combine different components): You can chain multiple operations without any computation happening until you finalize the stream 
+	  with a terminal operation. This makes streams flexible and allows you to build complex data pipelines step by step.

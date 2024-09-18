@@ -1,0 +1,143 @@
+SOLID principles:
+ 
+ - The SOLID principles are five design principles that help developers write maintainable, scalable, and robust object-oriented code.
+ - These principles were introduced by Robert C. Martin (Uncle Bob) and can be applied across various programming languages, including Java.
+
+1. Single Responsibility Principle (SRP):
+
+ - A class should have one, and only one, reason to change.
+
+ Key Concepts of SRP:
+  
+  1. Responsibility: A responsibility can be defined as a reason for change.
+  2. Cohesion: A class that adheres to SRP will have high cohesion—all its methods and data are related to a single concept or responsibility.
+  3. Decoupling: Decoupling makes it easier to modify, test, and reuse code without unintended side effects in unrelated area.
+
+ Why is SRP Important?
+  
+  1. Maintainability
+  2. Testability
+  3. Readability
+  4. Scalability and Flexibility
+
+ Example:
+
+  - Let’s apply SRP for Cricket player class by splitting it into Batter, Bowler, and potentially Allrounder classes. Each class will now handle a single 
+    responsibility related to the specific role of the player.
+  - Single Responsibility in Each Class:
+	Batter is responsible only for batting actions and statistics (bat() method and runsScored attribute).
+	Bowler is responsible only for bowling actions and statistics (bowl() method and wicketsTaken attribute).
+	Allrounder combines both but delegates to separate classes that handle their respective roles.
+  - Advantages:
+	Batter class changes only when there are changes in batting logic.
+	Bowler class changes only when there are changes in bowling logic.
+
+  - Garbage is an another example. Instead of grouping all the waste into single bin, segregate them into paper, food, plastic, metal.
+
+
+
+2. Open/Closed Principle (OCP):
+
+ - "Software entities should be open for extension but closed for modification."
+ - Open for Extension: The behavior of a module/class should be extendable, meaning you should be able to add new features or functionality.
+ - Closed for Modification: The existing, tested, and stable code should not be altered when adding new features. 
+   			    Instead, new functionality should be added in a way that avoids changing the existing class code.
+
+
+ How to achieve OCP?
+
+  OCP can be achieved through various techniques such as:
+   - Abstraction: Using interfaces or abstract classes that define general behavior, which can be extended by more specific implementations.
+   - Inheritance: Extending a class to add or override behavior without modifying the original class.
+   - Composition: Adding new behavior by composing new classes or strategies.
+   - Polymorphism: Writing code that works on abstract types or base classes, allowing you to introduce new behavior by creating subclasses or
+                   implementations of interfaces without touching the original code.
+
+  Example:
+    - Consider a shoppingCart class which has applyDiscount() method. In this method multiple discounts(like fixed, percentage, special) will be added in
+      if-else statement.
+    - In the future if we want to add the extra discount(buy one get one) then we have to modify the existing code which is risky.
+    - So while developing the application we have to have Discount Interface which has apply() abstract method. We can add n number of discount classes
+      implementing the interface(like FixedDiscount implements Discount, BuyOneGetOne implements Discount).
+
+ Benefits of This Approach:
+    - Closed for modification: We don’t need to modify the ShoppingCart class when adding new types of discounts.
+    - Open for extension: To add new discount types, we just create new classes that implement the Discount interface without changing the existing code.
+    - Code flexibility: You can change the discount logic dynamically by setting different discount strategies on the fly.
+
+ Key Benefits of OCP:
+    - Maintainability: Since existing classes are not modified, the risk of introducing bugs in already working code is reduced.
+    - Flexibility: New behavior or functionality can be added without altering existing code.
+    - Scalability: The system becomes easier to extend as new features can be incorporated independently.
+    - Stability: The core logic remains stable and well-tested, while extensions can be made on top of it.
+
+
+3. Liskov Substitution Principle (LSP):
+
+ - "Objects of a superclass should be replaceable with objects of a subclass without affecting the correctness of the program".
+ - Subclass should be able to stand in for its superclass without causing any issues in the program. It ensures that a subclass maintains the expected 
+   behavior of its parent class, meaning it shouldn't break the functionality or introduce unexpected behavior when used in place of the superclass.
+
+  When to Use LSP:
+   - When you are designing class hierarchies:
+   - When dealing with polymorphism:
+   - When defining interfaces or abstract classes:
+   - When overriding methods in subclasses:
+
+
+4. Interface Segregation Principle (ISP):
+
+ - "No client should be forced to depend on methods it does not use."
+ - Instead of having one large interface with many methods, break it down into smaller, more focused interfaces that are relevant to specific clients.
+
+  When to Use ISP:
+
+    - Large or Bloated Interfaces:
+	- If you have an interface with many methods and you notice that some classes implementing that interface don’t need to use all of them, use ISP.
+	- Example: You have an interface Machine that includes print(), scan(), and fax(). If some machines only need to print, they shouldn’t be forced to 	  implement scan() and fax() methods.
+
+    - Diverse Client Requirements:
+	- When different clients (classes) require different behaviors from an interface, ISP helps by breaking up the interface into multiple smaller, 	  client-specific ones.
+	- Example: A BasicPrinter might only need a Printable interface, while a MultiFunctionPrinter might need a combination of Printable, Scannable, and 	  Faxable interface.
+
+    - Frequent Changes or Additions:
+	- When you foresee the possibility of frequent changes to an interface because of new requirements, applying ISP can make those changes easier. You 	  only need to modify the relevant interface rather than affecting unrelated parts.
+ 	 	
+
+5. Dependency Inversion Principle (DIP):
+
+ - "The high-level modules should not depend on the low-level modules. Instead, both should depend on the Abstractions".
+ - The Abstractions should NOT depend on the Details. The Details should depend on the Abstractions.
+ - It suggests that the system should be designed around interfaces or abstract classes, allowing the concrete implementations to change independently 
+   without affecting the high-level logic.
+
+ Example:
+  Without DIP:
+   public class PaymentService {
+    private CreditCardPaymentProcessor creditCardPaymentProcessor = new CreditCardPaymentProcessor();
+
+    public void processPayment(Order order) {
+        creditCardPaymentProcessor.process(order);
+    }
+   }
+  
+  With DIP:
+   public interface PaymentProcessor {
+    void process(Order order);
+   }
+
+   public class CreditCardPaymentProcessor implements PaymentProcessor {
+    @Override
+    public void process(Order order) {
+        // Credit card payment processing logic
+        System.out.println("Processing credit card payment for order: " + order.getId());
+    }
+  }
+
+  public class PayPalPaymentProcessor implements PaymentProcessor {
+    @Override
+    public void process(Order order) {
+        // PayPal payment processing logic
+        System.out.println("Processing PayPal payment for order: " + order.getId());
+    }
+  }

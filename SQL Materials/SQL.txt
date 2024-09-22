@@ -109,9 +109,6 @@ In SQL, operations on databases are broadly categorized into several types of co
 
 
 
-
-
-
-MySQL Doc:
+MySQL Doc Reference:
 
 https://dev.mysql.com/doc/

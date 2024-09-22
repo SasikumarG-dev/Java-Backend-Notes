@@ -1,0 +1,133 @@
+List
+
+ - The List interface in Java is part of the java.util package and represents an ordered collection (also known as a sequence).
+ - It allows you to store duplicate elements and maintains the insertion order. List is a sub-interface of the Collection interface.
+
+   Implementations of List Interface:
+	* ArrayList
+	* LinkedList
+	* Vector
+	* Stack
+
+ArrayList:
+ - The ArrayList class in Java is part of the java.util package and is one of the most commonly used implementations of the List interface.
+ - It provides a resizable array, meaning it can grow or shrink dynamically as elements are added or removed.
+ - Internally, it uses an array to store its elements, which makes it efficient for random access (getting or setting an element by index), but slower for 
+   inserting and removing elements from the middle of the list.
+ - It is not synchronized and not thread safe.
+ - Elements are stored in the order in which they were added.
+
+  Key Operations of ArrayList:
+    * boolean add(E e): Appends the specified element to the end of this list.
+    * void add(int index, E element): Inserts the specified element at the specified position in this list.
+    * boolean addAll(Collection<? extends E> c): Appends all of the elements in the specified collection to the end of this list.
+    * E get(int index): Returns the element at the specified position in this list.
+    * int size(): Returns the number of elements in this list.
+    * boolean contains(Object o): Returns true if this list contains the specified element.
+    * E set(int index, E element): Replaces the element at the specified position in this list with the specified element.
+    * E remove(int index): Removes the element at the specified position in this list and returns the removed element.
+    * boolean remove(Object o): Removes the first occurrence of the specified element from this list.
+    * void clear(): Removes all of the elements from this list.
+
+  Features:
+    Dynamic Resizing:
+	- The underlying array of ArrayList starts with an initial capacity (default is 10). 
+	- When the list grows beyond the current capacity, ArrayList increases its capacity by approximately 50% 
+	- Conversely, when elements are removed, the capacity of the array may be reduced to save memory.
+    Performance:
+	- Accessing an element by its index using get() is very fast (constant time) since ArrayList uses a backing array (O(1)).
+	- Inserting or removing an element (except at the end) requires shifting all subsequent elements, which is slower (O(n)).
+ 
+   Synchronization:
+     - ArrayList is not synchronized. If you need thread safety, you can either use Collections.synchronizedList() to wrap the list or use a concurrent 
+       collection like CopyOnWriteArrayList.
+
+  Use ArrayList When:
+    - Random Access is Important (O(1)).
+    - When the List is Read-Intensive.
+    - Appending Elements to the End Frequently (O(1) Amortized).
+    - Memory Efficiency Matters.
+
+
+LinkedList:
+ - The LinkedList class in Java is part of the java.util package and implements the List, Deque, and Queue interfaces. 
+ - LinkedList is implemented as a doubly linked list, meaning that each element (node) in the list is connected to both the next and the previous element.
+ - This makes LinkedList well-suited for scenarios where frequent insertions and deletions are required, especially in the middle of the list.
+ - It is not synchronized and not thread safe.
+ - LinkedList supports both stack and queue operations as it implements the Deque interface, which allows adding and removing elements from both ends.
+
+  Key Operations in LinkedList:
+    * boolean add(E e): Appends the specified element to the end of this list.
+    * void add(int index, E element): Inserts the specified element at the specified position in this list.
+    * boolean addAll(Collection<? extends E> c): Appends all of the elements in the specified collection to the end of this list.
+    * void addFirst(E e): Inserts the specified element at the beginning of this list.
+    * void addLast(E e): Appends the specified element to the end of this list.
+    * E get(int index): Returns the element at the specified position in this list.
+    * E getFirst(): Returns the first element in this list.
+    * E getLast(): Returns the last element in this list.
+    * E remove(int index): Removes the element at the specified position in this list.
+    * boolean remove(Object o): Removes the first occurrence of the specified element from this list.
+    * E removeFirst(): Removes and returns the first element in this list.
+    * E removeLast(): Removes and returns the last element in this list.
+    * void clear(): Removes all the elements from this list.
+  Stack Operations (from Deque interface):
+    * void push(E e): Pushes an element onto the stack represented by this list (adds it to the front).
+    * E pop(): Pops an element from the stack (removes the first element).
+    * E peek(): Retrieves the first element without removing it from the list.
+  Queue Operations (from Queue interface):
+    * boolean offer(E e): Adds the specified element as the tail of the queue (same as addLast()).
+    * E poll(): Retrieves and removes the head (first element) of the list.
+    * E peek(): Retrieves, but does not remove, the head (first element) of the list.
+
+  Pros and Cons:
+    - Access Time (O(n)): Random access in LinkedList is slower compared to ArrayList because LinkedList doesn't provide direct index-based access. To get 
+      an element, the list must be traversed from the beginning or the end to the specified index.
+    - Insertion and Deletion (O(1)): Inserting or deleting elements at the start or end of the list is efficient, taking constant time (O(1)), as it only  
+      involves updating the pointers. However, inserting or removing an element in the middle requires traversal, which takes O(n) time.
+    - Memory Overhead: LinkedList uses more memory than ArrayList because each node requires additional memory for storing references (pointers) to the next 
+      and previous nodes.
+
+  Use LinkedList When:
+    - Frequent Insertions/Deletions at the Beginning (O(1)).
+    - Frequent Insertions/Deletions in the Middle (O(1) once you reach the position).
+    - When the List Acts as a Queue or Deque.
+
+
+
+Vector:
+  - Vector is a dynamic array data structure in Java. Like an ArrayList, it stores elements in a resizable array.
+  - The key difference lies in its synchronization and the way it grows dynamically when more capacity is needed.
+
+  Key Features of Vector
+    - Synchronized: The biggest difference between Vector and ArrayList is that all of Vector's methods are synchronized, meaning they are thread-safe.
+    - Dynamic Growth: When a Vector needs more capacity, it grows by doubling its size by default (unless you specify a custom growth factor).
+
+  When is Vector Still Needed?
+    - Legacy Code: If you're working in a legacy Java system that heavily uses Vector, refactoring the entire codebase to use Collections.synchronizedList() 
+      or other modern collections might be impractical.
+    - Compatibility with Older APIs: Some older APIs might still expect Vector as an input, and refactoring those APIs to work with List might be complex.
+
+
+
+Stack:
+  - Stack is a part of the Java Collection Framework and is a linear data structure that follows the Last In, First Out (LIFO) principle, meaning the last 
+    element added is the first one to be removed.
+  - It is commonly used in various algorithms such as backtracking, undo operations, expression evaluation, etc.
+  - In Java, Stack is a legacy class that extends Vector, and because of this, it inherits a lot of the properties of Vector, such as thread-safety and 
+    dynamic resizing. However, due to its older design, it's less favored compared to modern alternatives.
+
+  Key Methods in Stack:
+    * push(E item): Pushes an item onto the top of the stack.
+    * pop(): Removes and returns the element at the top of the stack. Throws EmptyStackException if the stack is empty.
+    * peek(): Returns the element at the top of the stack without removing it. Throws EmptyStackException if the stack is empty.
+    * empty(): Returns true if the stack is empty, false otherwise.
+    * search(Object o): Searches for an object in the stack and returns its 1-based position from the top of the stack. If the object is not found, it  
+      returns -1.
+
+  Limitations of Stack:
+     - Legacy Class: Stack is considered a legacy class, introduced in Java 1.0. In modern Java applications, Stack is often replaced by the Deque interface 
+                     (or its implementation, ArrayDeque) or LinkedList, both of which offer better performance and flexibility.
+
+  When to Use Stack:
+     - Legacy Code: If you're working with legacy code that uses Stack, refactoring it to use modern alternatives may not always be practical.
+     - Simple Use Cases: If you just need a quick, thread-safe stack and performance isn’t a critical concern, Stack can be used.

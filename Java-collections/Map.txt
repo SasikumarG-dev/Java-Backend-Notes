@@ -1,0 +1,149 @@
+Map :
+
+ - In Java, a Map Interface is a part of the Collections Framework but is not a subtype of the Collection interface.
+ - A Map stores data in key-value pairs (K being the key and V being the value). Each key must be unique, but values can be duplicated.
+
+
+									Map(I)
+									 |
+									 |
+									 |
+			 --------------------------------------------------------------------------------------------------
+			|						 |						   |
+			|						 |						   |
+			|						 |						   |
+		     HashTable(C)				      HashMap(C)					SortedMap(I)
+								     	 |						   |
+								     	 |						   |
+								     	 |						   |
+								   LinkedHashMap(C)				      NavigableMap(I)
+															   |
+															   |
+															   |
+														        TreeMap(C)
+
+
+
+
+  Key Operations of Map:
+   * put(K key, V value): Inserts a key-value pair into the map. If the key already exists, it updates the value.
+   * get(Object key): Returns the value associated with the given key. Returns null if the key doesn't exist.
+   * remove(Object key): Removes the key-value pair for the specified key.
+   * containsKey(Object key): Checks if the map contains the specified key.
+   * containsValue(Object value): Checks if the map contains one or more keys associated with the specified value.
+   * size(): Returns the number of key-value pairs in the map.
+   * isEmpty(): Checks if the map is empty.
+   * keySet(): Returns a Set view of the keys in the map.
+   * entrySet(): Returns a Set view of the key-value pairs (entries) in the map, represented as Map.Entry objects.
+
+  Map Implementations:
+   
+   * HashMap<K, V>
+      - Uses a hash table to store key-value pairs.
+      - Keys are unordered (no guarantee of any specific order).
+      - Allows one null key and multiple null values.
+      - The default load factor is 0.75, which means the HashMap is resized when 75% of its capacity is filled.
+
+   * LinkedHashMap<K, V>
+      - Extends HashMap and maintains a doubly linked list of entries to preserve insertion order.
+      - Ideal if you need the order of insertion to be preserved when iterating over the map.
+      - Performance is slightly slower than HashMap due to the overhead of maintaining the linked list. 
+
+   * TreeMap<K, V>
+      - Implements the NavigableMap interface and stores key-value pairs in a red-black tree.
+      - Keys are sorted in their natural order (or by a custom comparator if provided).
+
+   * Hashtable<K, V>
+      - A legacy implementation of the Map interface.
+      - Synchronized (thread-safe), meaning it is slower than HashMap in single-threaded environments.
+      - Does not allow null keys or values.
+      - Hashtable uses Whole Map Locking, meaning that the entire map is locked for every operation (read or write). This causes threads to block even on  
+        read operations.
+
+   * ConcurrentHashMap<K, V>
+      - A thread-safe implementation of HashMap that supports concurrent retrievals and updates.
+      - It divides the map into segments and locks only specific segments for updates, making it more efficient in multi-threaded environments than HashMap.
+      - ConcurrentHashMap uses a hybrid approach combining lock-free reads, fine-grained locking(updating), and CAS-based atomic operations to provide 
+	thread safety.
+
+   * SynchronizedHashMap
+      - The synchronizedMap() method of Java Collections class is used to get a synchronized (thread-safe) map.
+      - Map<String, Integer> syncMap = Collections.synchronizedMap(new HashMap<>());
+
+  Iterations:
+
+   i) Using forEach():
+        Map<String, Integer> map = Collections.synchronizedMap(ht);
+        map.forEach((key, value) -> {
+            System.out.println("Key: " + key + ", Value: " + value);
+        });
+
+   ii) Using entrySet()
+        for (Map.Entry<String, Integer> entry : map.entrySet()) {
+    	   System.out.println("Key: " + entry.getKey() + ", Value: " + entry.getValue());
+	}
+
+   iii) Using java 8 Streams
+        map.entrySet().stream()
+    	  .filter(entry -> entry.getValue() > 30)
+    	  .forEach(entry -> System.out.println("Key: " + entry.getKey() + ", Value: " + entry.getValue()));
+
+
+   NULL key and value:
+    - Allows both null key and null values: HashMap, LinkedHashMap
+    - Allows null values but not null keys: TreeMap
+    - Does not allow null key or null values: Hashtable, ConcurrentHashMap
+
+   HashMap vs. Hashtable
+
+	Feature					HashMap							Hashtable
+	Synchronization		Not synchronized (not thread-safe)				Synchronized (thread-safe)
+	Performance		Generally faster due to lack of synchronization			Slower due to synchronization overhead
+	Null Keys/Values	Allows one null key and multiple null values			Does not allow null keys or values
+	Legacy Status		Part of the Java Collections Framework (introduced in Java 2)	A legacy class (part of the original Java 1.0)
+	Use Case		Preferred for non-threaded applications				Use in synchronized multi-threaded applications
+
+   Hashtable vs. ConcurrentHashMap
+
+	Feature					Hashtable						ConcurrentHashMap
+	Synchronization			Fully synchronized (locks entire map)			Segmented locking (fine-grained locking)
+	Performance			Slower due to full locking				Generally faster, allowing concurrent reads and writes
+	Use Case			Legacy applications needing thread safety		Modern multi-threaded applications where high concurrency 												and performance are required
+
+
+  Synchronization Overhead:
+   - Synchronization overhead refers to the performance cost associated with ensuring that multiple threads can safely access shared resources without 
+     causing data corruption or inconsistent states.
+
+  What Causes Synchronization Overhead?
+   - Locks and Contention: When multiple threads attempt to access a synchronized resource, some threads may need to wait for locks to be released by 
+     others. This waiting time adds overhead, particularly in high-contention scenarios where many threads compete for the same resource.
+   - Context Switching: When threads are blocked waiting for a lock, the operating system may switch between threads, which involves saving the state of the  
+     current thread and loading the state of another. This context switching can introduce additional overhead.
+   - Lock Acquisition and Release: The act of acquiring and releasing locks involves certain operations that take time.
+
+
+
+  How HashMap internally works?
+    - HashMap internally uses arrays(bucket of arrays) to store the entries.
+    - Each index in this array is called a "bucket" and can hold one or more entries.
+    - Each entry consists of a key, a value, a hash code, and a reference to the next entry in case of collisions.(Collision: If two or more keys has same 
+      index value then collision occurs).
+
+  
+  Capacity
+   -  The capacity of a HashMap refers to the number of buckets available to store entries. Each bucket stores multiple entries in case of collisions.
+   -  When you create a HashMap, you can specify its initial capacity. If not specified, the default initial capacity is 16 buckets.
+   - If the number of entries in the HashMap exceeds a certain threshold (determined by the load factor), it typically doubles (i.e., from 16 to 32).
+   - When the capacity is increased, the HashMap must rehash all of the keys and redistribute them across the new, larger array of buckets. This process can 
+     temporarily slow down performance, but it's essential for keeping retrieval and insertion efficient.
+
+  Load Factor
+   - The load factor is a measure of how full the HashMap can get before its capacity is increased. It is a value between 0 and 1.
+   - The default load factor in HashMap is 0.75. This means that when 75% of the capacity is filled, the HashMap will resize.
+   - The default value of 0.75 is chosen as a balance between space and time efficiency.
+
+
+  Threshold
+     Threshold = Capacity × LoadFactor
+     16 × 0.75 = 12

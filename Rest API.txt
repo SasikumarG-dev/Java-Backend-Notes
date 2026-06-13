@@ -1,0 +1,26 @@
+Rest API:
+  - A REST API (Representational State Transfer) is a set of rules that developers follow when creating APIs. RESTful APIs allow interaction with web services 
+    using a stateless, resource-based approach.
+
+Key Concepts
+ 1. Stateless: Each request from a client to server must contain all the information needed to understand and complete the request.
+ 2. Resource-Based: REST treats data as resources that can be accessed through unique URLs.
+ 3. HTTP Methods:
+	GET: Retrieve a resource.
+	POST: Create a new resource.
+	PUT: Update an existing resource.
+	DELETE: Remove a resource.
+ 4. JSON or XML: Typically, data is exchanged in JSON format, though XML is also sometimes used.
+
+HTTP Status Codes
+ - Status codes provide feedback to clients on the success or failure of requests. Here are the most common ones:
+
+	  Status Code			  Category		   Description
+	200 OK				Success			Request succeeded.
+	201 Created			Success			Resource created.
+	204 No Content			Success			Request succeeded but no data.
+	400 Bad Request			Client Error		Invalid request format.
+	401 Unauthorized		Client Error		Authentication required.
+	403 Forbidden			Client Error		Client not allowed.
+	404 Not Found			Client Error		Resource not found.
+	500 Internal Server Error	Server Error		Server-side failure.

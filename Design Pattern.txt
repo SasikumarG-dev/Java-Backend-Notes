@@ -1,0 +1,28 @@
+Design Pattern:
+ - A design pattern in programming is a reusable solution to a common problem that occurs during software design and development. It provides a structured 
+   approach to solving specific design or implementation issues, allowing developers to create more maintainable, flexible, and scalable code.
+
+1. Creational Patterns:
+    - These patterns focus on object creation mechanisms, providing ways to create objects in a manner that is flexible, decoupled from their concrete 
+      implementations, and suited to the specific requirements of the application. Examples include the Singleton pattern, Factory pattern, and Builder 
+      pattern.
+
+	* Singleton		Ensures a class has only one instance and provides a global point of access to it.
+	* Factory Method	Defines an interface for creating objects but lets subclasses decide which class to instantiate.
+	* Abstract Factory	Provides an interface for creating families of related objects without specifying concrete classes.
+	* Builder		Separates object construction from its representation (ideal for complex objects).
+
+2. Structural Patterns:
+   - These patterns deal with the composition of classes and objects to form larger structures while keeping them flexible and efficient. They help ensure 
+     that classes and objects can work together effectively to achieve a common goal. Examples include the Adapter pattern, Decorator pattern, and Composite 
+     pattern.
+
+	* Adapter	Allows incompatible interfaces to work together.
+	* Decorator	Adds responsibilities to objects dynamically.
+
+3. Behavioral Patterns:
+   - These patterns focus on the interactions and communication between objects and classes. They provide solutions for effectively managing the flow of 
+     control, responsibilities, and behavior between objects. Examples include the Observer pattern, Strategy pattern, and Command pattern.
+
+	* Observer	Defines a one-to-many dependency between objects (e.g., Event Listeners).
+	* Strategy	Allows selecting an algorithm at runtime.

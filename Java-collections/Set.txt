@@ -1,0 +1,36 @@
+Set:
+ - The Set interface in Java is part of the Java Collections Framework and represents a collection that does not allow duplicate elements.
+
+  Key Methods
+    * add(E e): Adds the specified element to the set. Returns true if the element was added successfully, false if it was already present.
+    * remove(Object o): Removes the specified element from the set if it is present. Returns true if the element was removed, false otherwise.
+    * contains(Object o): Returns true if the set contains the specified element, false otherwise.
+    * size(): Returns the number of elements in the set.
+    * clear(): Removes all elements from the set.
+    * isEmpty(): Returns true if the set is empty, false otherwise.
+    * iterator(): Returns an iterator over the elements in the set.
+
+
+HashSet:
+    - HashSet implements the Set interface. It represents a collection of unique elements and is backed by a hash table.
+    - HashSet does not allow duplicate elements. If you attempt to add an element that already exists, the add method will return false.
+    - The elements in a HashSet are not stored in any particular order. The order can change if the set is modified.
+    - HashSet allows one null element.
+    - Performance: O(1) time complexity for add, remove, and contains operations on average.
+
+
+
+LinkedHashSet:
+ - LinkedHashSet maintains a linked list of the entries in the set, which allows it to preserve the order of insertion.
+ - Like other Set implementations, LinkedHashSet does not allow duplicate elements.
+ - It permits one null element.
+ - Performance: O(1) time complexity for add, remove, and contains operations on average.
+
+
+
+TreeSet:
+ - TreeSet is used to store unique elements in a sorted order.
+ - TreeSet maintains its elements in ascending order based on their natural ordering or according to a specified comparator.
+ - Like other Set implementations, TreeSet does not allow duplicate elements.
+ - While TreeSet provides sorted order, its performance for basic operations is slower (O(log n)) compared to HashSet (O(1) on average).
+ - TreeSet uses a red-black tree, which is a self-balancing binary search tree.

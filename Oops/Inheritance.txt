@@ -1,0 +1,158 @@
+Inheritance:
+
+ - Class inherits properties and behavior (fields and methods) from another class.
+ - It promotes code reusability and establishes a relationship between classes.
+
+ Key Concepts
+   - Parent Class (Superclass): The class whose properties and behaviors are inherited.
+   - Child Class (Subclass): The class that inherits from the parent class.
+
+ Where and When to Use Inheritance
+   - Reuse Code: When you have multiple classes with shared properties and methods, inheritance allows you to define these common elements in a parent 
+     class, preventing duplication.
+
+   - Create Specific Behavior: You can create specialized behavior in child classes by adding new methods or overriding existing ones from the parent class.
+
+   - Relationship Definition: Use inheritance when classes follow an “is-a” relationship. For example, a Dog is an Animal, so the Dog class can inherit from 
+     the Animal class.
+
+ Types of Inheritance in Java
+   - Single Inheritance: A subclass inherits from one parent class.
+     class A { }
+     class B extends A { }
+
+   - Multilevel Inheritance: A class can inherit from a class that has already inherited from another class.
+     class A { }
+     class B extends A { }
+     class C extends B { }
+
+   - Hierarchical Inheritance: Multiple classes inherit from one parent class.
+     class A { }
+     class B extends A { }
+     class C extends A { }
+ Note: Java doesn't support multiple inheritance with classes to avoid ambiguity (Diamond Problem). Instead, it allows multiple inheritance through 
+       interfaces.
+
+ why multiple inheritance is not supported in java?
+
+   - Multiple inheritance is not supported in Java with classes because it can lead to ambiguities and complexity, especially in cases where methods or 
+     fields with the same name exist in more than one parent class. This problem is commonly referred to as the Diamond Problem.
+
+
+     class A {
+         void display() {
+             System.out.println("Display from A");
+         }
+     }
+
+     class B extends A {
+         @Override
+         void display() {
+             System.out.println("Display from B");
+         }
+     }
+
+     class C extends A {
+         @Override
+         void display() {
+             System.out.println("Display from C");
+         }
+     }
+
+     // What if Java supported multiple inheritance?
+     class D extends B, C {   // Hypothetical scenario, Java doesn't support this
+         // Ambiguity: Which display() method should D inherit? From B or C?
+     }
+
+   - In this example, if class D were to inherit from both B and C, it would inherit two versions of the display() method: one from B and another from C. 
+   - This leads to ambiguity because the Java compiler wouldn't know which display() method to call when an object of class D invokes it.
+
+
+ Inheritance Interview Questions:
+
+  1. What is the super keyword used for in Java?
+      Used to access parent class members:
+	- Method: super.parentMethod().
+	- Constructor: super(args) to call the parent class constructor.
+
+  2. Can you inherit a private member of a parent class?
+      - No, private members are not accessible directly in child classes. However, they can be accessed via public/protected getter methods.
+
+  3. What happens if a parent class method is final?
+      - It cannot be overridden by child classes.
+
+  4. Can a child class access static methods of a parent class?
+      - Yes, but they are not overridden; they belong to the class, not instances.
+      - Eg:
+	class Parent {
+  	  static void display() {
+   	     System.out.println("Static method in Parent class");
+    	}
+	}
+
+	class Child extends Parent {
+  	  static void display() {
+   	     System.out.println("Static method in Child class");
+   	 }
+	}
+
+	public class InheritanceExample {
+  	  public static void main(String[] args) {
+     	   // Call static method using the class name
+     	   Parent.display(); // Output: Static method in Parent class
+     	   Child.display();  // Output: Static method in Child class
+
+    	   // Call static method using object reference
+           Parent obj1 = new Parent();
+           Parent obj2 = new Child();
+
+           obj1.display();   // Output: Static method in Parent class
+           obj2.display();   // Output: Static method in Parent class
+    	}
+	}
+
+	* Access through class name: The method called depends on the class name used (Parent or Child).
+	* Access through object reference: For static methods, the method call depends on the reference type, not the object type. In the above 
+ 	  code, obj2.display() calls the Parent class method even though the object is of type Child.
+
+  5. What is the impact of inheritance on constructors?
+      - Constructors are not inherited. However, the parent constructor can be invoked using super().
+
+  6. What is shadowing in inheritance?
+      - Shadowing occurs when a subclass defines a field with the same name as one in its parent class. Parent class fields can be accessed 
+        using super.
+
+  7. How does Java decide which method to call in overriding scenarios?
+      - Java uses the runtime type of the object, not the reference type.
+      - Key Takeaways:
+	 * For methods, Java uses the runtime type of the object to decide which method to call (dynamic method dispatch).		
+	 * For fields, Java uses the reference type to resolve which field to access.
+
+  8. Advantage of Inheritance in Java?
+      - Code Reusability
+      - Polymorphism is another key advantage of inheritance. It allows objects of different classes to be treated as objects of a common 	superclass. The most common form of polymorphism is method overriding, where a subclass provides its own implementation of a method that 	is already defined in the superclass. Polymorphism enables the same method to behave differently depending on the type of object that 	invokes it.
+
+  9. Can a class extends more than one class in Java? (detailed answer)	
+      - No, a class can only extend just one more class in Java.  Though Every class also, by default extend the java.lang.Object class in Java.
+
+  10. What are covariant return types in Java?
+      - In method overriding, the return type of the overriding method can be a subclass of the return type declared in the parent class.
+
+  8. Differences Between Association, Aggregation, and Composition
+	Aspect			Association					Aggregation				Composition
+	Definition	A general relationship between objects.	    A "has-a" relationship with weak ownership.	  A "part-of" relationship with 															strong ownership.
+	Ownership	No ownership.				     Weak ownership (independent objects).	Strong ownership (dependent 																objects).
+ Lifecycle Dependency	Objects are independent.		Container and contained are independent.	Contained objects depend on the 															container.
+Example			Customer and Order.				School and Department.				Car and Engine.
+   
+   * Aggregation Example:
+	- Imagine a university and its departments.
+	- The university can exist without the departments.
+	- Departments can also exist independently of the university and could belong to another university.
+   * Composition Example:
+	- Now consider a car and its engine.
+	- A car cannot exist without an engine.
+	- Similarly, the engine is part of the car and cannot exist independently.
+   * Aggregation vs Composition
+	- In aggregation, the child object (B) is created and managed outside the parent (A), then passed to it.
+	- In composition, the parent (A) is responsible for creating and managing the child (B).

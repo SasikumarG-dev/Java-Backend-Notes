@@ -1,0 +1,113 @@
+Java Topics
+
+🔰 Basics of Java
+- First Java Program Internals
+- JDK, JRE, JVM (Java Virtual Machine)
+- JVM Memory Management
+- JVM Architecture or Internal Details
+- Memory Management (Garbage Collection in Depth)
+
+🏗️ Class, Object, and Types of Classes
+- Naming Convention of Java
+- Life Cycle of an Object
+- Anonymous Objects in Java
+- Serialization and Deserialization
+
+🔢 Data Types, Variables, Constants, and Literals
+- Java Variables and Non-Primitive Data Types
+- Types of Variables (Local, Instance, Static)
+
+🛠️ Methods in Java
+- Methods
+- Static Method and Instance Method
+- Main Method
+
+🚧 Constructors in Java
+- Constructor
+- Constructor Overloading
+- Constructor Chaining in Java
+- Copy Constructor in Java
+
+🔒 Modifiers in Java
+- Types of Access Specifiers
+- Non-Access Modifiers
+
+⚙️ Static Keyword
+- Static Variable
+- Static Method
+- Static Block
+
+🔑 Final Keyword
+- Final Keyword
+- Final Variable
+- Final Method
+- Final Class
+
+🏛️ Inner Class in Java
+- What is Inner Class in Java?
+- Properties of Inner Class
+- Instantiating Inner Class
+- Types of Inner Class in Java
+
+💡 Super Keyword
+- Super Keyword
+- Calling of Superclass Instance Variable
+- Superclass Constructor
+- Superclass Method
+
+🔍 This Keyword
+- This Keyword
+- Difference Between Super and This
+
+💥 OOPs Concepts
+- Encapsulation
+- Inheritance
+- Polymorphism
+- Abstraction
+
+📂 Collections Framework
+- What is the Collection Framework?
+- Map
+- Set
+- Queue
+- List
+- Comparator vs Comparable and PriorityQueue
+
+⚠️ Exception Handling
+- Exception Handling in Java
+- Error vs Exception
+- Types of Exceptions
+- Try-catch Block
+- Multiple Catch Block
+- Nested Try Block
+- Finally Block
+- Throw vs Throws
+- Finally vs Finalize
+- Java Custom Exceptions
+- Throwable Class
+
+🧵 String, StringBuffer, StringBuilder
+- Immutable String
+- String Comparison
+- StringBuffer and StringBuilder Class
+- String, StringBuilder, StringBuffer Differences
+
+🛠️ Multithreading
+- Thread Creation
+- Thread Class vs Runnable Interface
+- Join Method
+- Synchronized Keyword
+- Thread Lifecycle
+- Inter-Thread Communication
+- Daemon Thread, Thread Priority
+- Callable Interface
+- Difference Between Runnable and Callable
+- Locks and Condition
+- Lock-Free Concurrency
+- Thread Pools
+- Thread Pool Executor
+- Volatile Keyword
+- Interrupting Threads
+
+
+marker interface

@@ -1,0 +1,56 @@
+Kafka:
+
+Kafka Broker:
+ - Stores messages, processes producer/consumer requests.
+
+Zookeeper:
+ - Manages metadata, detects failures, and handles leader election.
+
+Kafka Partition:
+ - A partition is a way to split a Kafka topic into multiple parts to enable parallel processing and scalability.
+
+ Why Use Partitions?
+  - Parallel Processing: Multiple consumers can read from different partitions simultaneously.
+  - High Throughput: Since each partition is independent, Kafka can handle millions of messages per second.
+  - Scalability: You can add more partitions to distribute the load.
+  - Data Ordering: Kafka guarantees ordering within a partition (but not across partitions).
+
+Kafka Offset:
+ - An offset in Kafka is a unique identifier assigned to each message in a partition.
+ - It acts like an index in a log file that helps track the position of messages for consumers.
+ - Kafka assigns a unique offset to every message within a partition.
+ - Consumers use offsets to keep track of which messages they have processed.
+ 
+ How Offsets Work in Kafka?
+  - Producers send messages → Kafka appends them to a partition and assigns an offset.
+  - Consumers read messages and Kafka remembers the last offset consumed.
+  - Consumers can read messages from the beginning or continue from where they left off.
+
+ Offset Reset Strategies
+  - If a consumer joins for the first time or loses its offset, Kafka needs to decide where to start consuming.
+  - Eg: auto-offset-reset: earliest
+
+	Offset Reset Options			Option	Description
+	  earliest			Reads messages from the beginning of the topic.
+	  latest			Starts reading from new messages only.
+	  none				Fails if no offsets are found.
+
+Consumer Group:
+ - A consumer group is a way to scale consumers horizontally while ensuring that each message in a topic is processed exactly once.
+ - Multiple consumers within the same group can consume messages in parallel from different partitions.
+ - Each partition is assigned to only one consumer within the group.
+ - Multiple groups can consume the same messages independently.
+
+ Benefits of Using Consumer Groups
+  - Parallel Processing: Partitions are distributed among consumers for fast processing.
+  - Scalability: You can add more consumers to increase throughput.
+  - Fault Tolerance: If a consumer crashes, Kafka automatically reassigns its partitions to another consumer in the group.
+  - Multiple Independent Services: Different consumer groups can consume the same topic independently.
+
+Best Practices for Production
+         Component		          Recommended Value
+	Brokers				3–5 (minimum for replication)
+	Topics				One per microservice
+	Partitions			At least 3–4 per topic (More for high throughput)
+	Consumer 			Groups	One per microservice
+	Consumers in a Group		Up to the number of partitions

@@ -1,0 +1,31 @@
+Java 17
+
+1.  var keyword	
+     - compiler automatically infers the type of the variable from the right-hand side expression
+     - var name = "Sasi"; 
+
+2. New String methods
+    - strip() - Returns a string whose value is this string, with all leading and trailing white space removed.
+    - lines() -
+    - repeat() - Returns a string whose value is the concatenation of this string repeated count times.
+
+3. Enhanced Switch Block
+
+4. Text Blocks  | Multi-line strings using """ |
+
+	 String json = """
+	{
+ 	 "name": "ChatGPT",
+ 	 "type": "AI"
+	}
+	""";
+
+5. Records	
+    - Immutable data carrier classes
+    - public record Employee(int id, String name, String role, double salary) { }
+
+6. Sealed Classes	
+    - Restrict which classes can extend a class
+    - A sealed class or interface explicitly declares a restricted set of permitted subclasses or implementations. Only these permitted classes can extend or    
+      implement it.
+    - public sealed class Animal permits Dog, Cat {}

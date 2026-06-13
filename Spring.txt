@@ -1,0 +1,67 @@
+Spring:
+  - The Spring Framework is a mature, powerful and highly flexible framework focused on building web applications in Java.
+  - One of the core benefits of Spring is that it takes care of most of the low-level aspects of building the application to allow us to actually focus on 
+    features and business logic.
+  - Spring offers a broad range of features covering everything from basic dependency injection (DI), web development (Spring MVC), data access (Spring Data), 
+    security (Spring Security), to cloud-native microservices (Spring Cloud)
+
+
+  Inversion of Control:
+    - Inversion of Control is a principle in software engineering which transfers the control of objects or portions of a program to a container or  
+      framework.
+    - In the Spring framework, the interface ApplicationContext represents the IoC container.
+    - The Spring framework provides several implementations of the ApplicationContext interface: AnnotationConfigApplicationContext, 
+      ClassPathXmlApplicationContext for standalone applications, and WebApplicationContext for web applications.
+    - The advantages of this architecture are:
+	* decoupling the execution of a task from its implementation
+	* making it easier to switch between different implementations
+	* greater modularity of a program
+	* greater ease in testing a program by isolating a component or mocking its dependencies, and allowing components to communicate through contracts
+    - We can achieve Inversion of Control through: Strategy design pattern, Service Locator pattern, Factory pattern, and Dependency Injection (DI).
+
+  Dependency Injection:
+    - Dependency Injection is a technique where one object supplies the dependencies of another object.
+    - “injecting” objects into other objects, is done by an assembler rather than by the objects themselves.
+    - Types of Dependency Injection in Spring:
+	* Constructor Injection: Dependencies are provided through the constructor of the class.
+	* Setter Injection: Dependencies are provided through setter methods.
+	* Field Injection: Dependencies are directly injected into fields (not recommended due to testability concerns).
+
+  Bean:
+    - A bean is an object that is instantiated, assembled, and otherwise managed by a Spring IoC container.
+    - Bean Lifecycle
+	* Instantiation: The bean is created by the container.
+	* Dependency Injection: The dependencies for the bean are injected (either through constructor, setter, or field injection).
+	* Initialization: Any custom initialization logic is executed(like @postConstruct - init method).
+	* Ready to Use: The bean is fully initialized and available for use.
+	* Destruction: The bean is destroyed by the container, and any cleanup methods are invoked.
+    - Define a Bean?
+	* Annotation-Based Configuration (using annotations like @Component, @Service, @Repository, and @Controller).
+	* Java-Based Configuration (using @Bean in a @Configuration class).
+	* XML-Based Configuration (defining beans in an XML configuration file).
+    - Eager Initialization: By default, Spring beans are created when the application context is initialized (eager initialization). However, you can 
+                            configure beans to be created only when they are requested for the first time using lazy initialization. 
+			    Add @Lazy annotation on top of the class.
+
+
+  Bean Scopes:
+    - Singleton Scope:
+	- The singleton scope is the default scope in Spring. A bean defined with this scope is instantiated only once, and the same instance is shared 
+          across the entire Spring container. Every time the bean is requested, the same object is returned.
+	- The instance is created when the Spring container is initialized (eagerly by default).
+
+    - Prototype Scope
+	- New instance of the bean is created every time the bean is requested from the Spring container. This means that multiple instances of the bean 
+	  will exist, and each request for the bean results in a fresh instance.
+	- Prototype beans are created lazily, meaning they are instantiated only when explicitly requested.
+	- @Scope("prototype")
+  
+    - Request Scope (Web Applications)
+	- A new bean instance is created for each HTTP request.
+	- The bean is destroyed when the HTTP request is completed.
+	- @RequestScope
+
+    - Session Scope (Web Applications)
+	- A new bean instance is created for each HTTP session.
+	- The bean is destroyed when the HTTP session expires or is invalidated.
+	- @SessionScope

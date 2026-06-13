@@ -1,0 +1,108 @@
+Generics:
+
+	- Generics allow type (Integer, String, … etc., and user-defined types) to be a parameter to methods, classes, and interfaces. 
+	- Using Generics, it is possible to create classes that work with different data types.
+	- It leverages the compiler for type safety.
+
+	
+WildCards:
+
+	- specifies the type which is unknown.
+
+i)Unbounded Wildcards
+ * Used when you don’t care about the specific type; you can read elements as Object.
+
+ii) Upper Bounded Wildcard (<? extends T>)
+* Used for reading elements from a structure where elements are of type T or a subtype of T.
+
+iii) Lower Bounded Wildcard (<? super T>)
+* Used for writing elements to a structure where elements are of type T or a superclass of T.
+
+Type Erasure:
+
+	- It’s the process by which generic type information is removed during compilation, which ensures backward compatibility with older versions of Java 	  that do not support generics. This means that generic type parameters are replaced with their bounds or Object if no bounds are specified.
+
+	- Before Erasure: 
+		public <T> void add(T element) {
+		    // Implementation
+		}
+	- After Erasure:
+		public void add(Object element) {
+		    // Implementation
+		}
+
+
+Why Use Generics?
+
+ * Type Safety: Generics enforce type checks at compile-time, which reduces runtime errors and eliminates the need for explicit type casting.
+ * Code Reusability: You can write more general and reusable code with generics.
+ * When we want to group a collection of things or containers we us Generics.
+
+Pros:
+ * Without generics we have to manually type check the objects which we are setting in an object. But Generics solves this in compile time.
+
+1. Generic Classes:
+
+A generic class is a class with a type parameter. Here's a simple example:
+
+public class Box<T> {
+    private T value;
+
+    public void setValue(T value) {
+        this.value = value;
+    }
+
+    public T getValue() {
+        return value;
+    }
+}
+
+
+Box<Integer> integerBox = new Box<>();
+integerBox.setValue(10);
+Integer value = integerBox.getValue();
+
+Box<String> stringBox = new Box<>();
+stringBox.setValue("Hello");
+String str = stringBox.getValue();
+
+2. Generic Methods
+Generic methods allow you to define methods with type parameters. Here's an example:
+
+public class Utility {
+    public static <T> void printArray(T[] array) {
+        for (T element : array) {
+            System.out.println(element);
+        }
+    }
+}
+
+Integer[] intArray = {1, 2, 3};
+String[] strArray = {"A", "B", "C"};
+
+Utility.printArray(intArray);
+Utility.printArray(strArray);
+
+
+
+Generics don't support polymorphism:
+
+public static void main(String[] args) {
+		List<Deer> deerList = new ArrayList<>();
+		deerList.add(new Deer("deer", "white"));
+		print(deerList);
+		
+		List<Lion> lionList = new ArrayList<>();
+		lionList.add(new Lion("lion ", "orange"));
+		print(lionList);
+		
+		
+
+	}
+	
+	static void print(List<Object> obj) {
+		for(Object ob : obj) {
+			System.out.println(ob.toString());
+		}
+	}
+Generics dont support this but using wildcards we can achieve this.

@@ -1,0 +1,31 @@
+Static Keyword:
+
+1. static variable:
+    - When a variable should have the same value for all objects of a class.
+      Example: A counter that tracks the number of objects created.
+    - When storing values that don’t depend on a specific object but are class-wide settings.
+      Example: static String DB_URL = "jdbc:mysql://localhost";
+
+    Key Takeaways
+	Scenario				Use Static		Use Non-Static
+	Shared across all objects		✅ Yes			❌ No
+	Unique per object			❌ No			✅ Yes
+	Constants (Final)			✅ Yes			❌ No
+	Configuration settings			✅ Yes			❌ No
+	Data related to a specific object	❌ No			✅ Yes
+	Example: counter, DB_URL		✅ Yes			❌ No
+	Example: name, age			❌ No			✅ Yes
+
+2. static method
+    - A static method belongs to the class rather than any specific instance. It can be called without creating an object.
+    - When a method performs an operation that doesn’t depend on instance variables. Utility Methods / Helper Functions
+      Example: Math operations (Math.pow(), Math.sqrt()).
+     
+       When to Use Which?
+     	Scenario						Use Static (static)		Use Non-Static
+	Utility functions (math, conversions)			✅ Yes			❌ No
+	Instance behavior (depends on object state)	❌ No			✅ Yes
+	Factory methods (creating objects)		✅ Yes			❌ No
+	Overridable method (for polymorphism)		❌ No			✅ Yes
+	Accessing/modifying instance fields		❌ No			✅ Yes
+	Performance optimization (less memory overhead)	✅ Yes			❌ No

@@ -1,0 +1,88 @@
+Abstraction:
+ - Abstraction is a core concept in object-oriented programming (OOP) that focuses on hiding the implementation details of an object and exposing 
+   only the essential features or behavior to the outside world. It allows developers to define abstract "what to do" rather than "how to do."
+
+ Abstract Class:
+  - Can have both abstract (no body) and non-abstract methods.
+  - Allows you to define partial behavior and leave the rest for subclasses to implement.
+
+ Interface
+  - Introduced in Java as a pure abstraction mechanism (before Java 8).
+  - It can also have Default methods (with implementation) and Static methods.
+  - Fields in an interface are implicitly public, static, and final.
+
+ Advantages of Abstraction:
+  - Improves Focus: Users of a class focus only on what it does, not how it works.
+  - Encapsulation: Works hand-in-hand with encapsulation, ensuring details remain hidden.
+  - Code Reusability: Abstract classes and interfaces provide templates that can be reused across multiple implementations.
+  - Scalability: New implementations can be added without altering existing code.
+
+ Real-Life Examples of Abstraction:
+  - Driving a Car: You interact with the accelerator, brake, and steering without knowing the complexities of the engine, transmission, or 
+    braking system.
+
+ Abstraction vs. Encapsulation
+  	Feature			Abstraction							Encapsulation
+        Purpose		Hides complexity and shows only essential details.		Bundles data and methods within a class.
+	Focus		What an object does (behavior).					How an object’s data is protected.
+	Implementation	Achieved via abstract classes and interfaces.			Achieved via access modifiers (private, public).
+	Relation	Focuses on design and functionality.				Focuses on data security and integrity.
+
+Key Differences Between Default Methods in Interfaces and Methods in Abstract Classes
+
+Aspect                 | Default Methods (Interface)                                          | Methods in Abstract Classes                                                         
+--------------------------------------------------------------------------------------------------------------
+Access to Instance     | Cannot access instance variables (because interfaces cannot          | Can directly access and modify instance   
+   Variables  		           have instance fields). 					   variables of the abstract class.
+            	       |                                  			              |
+--------------------------------------------------------------------------------------------------------------
+State Management       | Stateless; interfaces cannot hold state (no instance fields).        | Can hold and manage instance state (fields).
+--------------------------------------------------------------------------------------------------------------
+Multiple Inheritance   | A class can implement multiple interfaces, each with default methods,| A class can extend only one abstract class.
+                       | but conflicts must be resolved manually.                             |
+--------------------------------------------------------------------------------------------------------------
+Constructor            | Interfaces do not have constructors.                                 | Abstract classes can define constructors, which 												are called when a subclass is instantiated.
+                       |                                                                      | 
+--------------------------------------------------------------------------------------------------------------
+Purpose                | Provides a way to add default behavior to an interface for backward  | Designed for partial implementation and to 					compatibility and mix-ins.  					enforce a common base behavior or state.
+                       |                                         			      | 
+--------------------------------------------------------------------------------------------------------------
+
+
+Interview Questions:
+
+ 1. Can an interface have a private method?
+     - Yes, starting with Java 9, interfaces can have private methods. These methods are used to share code between default methods or static 
+       methods within the interface but cannot be accessed by implementing classes.
+
+ 2.  How do abstract classes and interfaces differ in supporting state?
+     - Abstract classes can have instance fields and manage state.
+     - Interfaces cannot have instance fields and are inherently stateless.
+
+ 3.  What are some real-time uses of default methods?
+     - Adding helper methods like log() or validate() without affecting existing implementations.
+     - Providing cross-cutting concerns like auditing or security checks.
+     - Enhancing interfaces in a backward-compatible way.
+
+ 4. What happens if an abstract class does not implement all interface methods?
+     - If an abstract class does not implement all interface methods, it remains abstract, and any concrete subclass must implement the 
+       remaining methods.
+
+ 5. How do default methods differ from static methods in interfaces?
+     - Default Methods: Associated with an instance and can be overridden by implementing classes.
+     - Static Methods: Associated with the interface itself and cannot be overridden.
+
+ 6. Given a class implementing two interfaces with default methods, how would you resolve a conflict?
+     - Explicitly override the conflicting method and decide which default method to invoke using InterfaceName.super.methodName().
+
+ 7. Can you create an instance of an abstract class?
+     - No, you cannot instantiate an abstract class directly. However, you can create an instance of a concrete subclass that extends the 
+       abstract class.
+
+ 8. Can abstract classes implement interfaces?
+     - Yes, abstract classes can implement interfaces and provide implementations for some or all methods in the interface.
+     - Concrete subclasses of the abstract class must implement any unimplemented methods.
+
+ 9. Why abstract class has constructor even though you cannot create object? 
+     - An abstract class can have a constructor even though you cannot create an instance of it directly. The key reason for this is that the 
+       constructor in an abstract class is used to initialize the state of the class when an instance of a concrete subclass is created.

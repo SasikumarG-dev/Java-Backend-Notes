@@ -18,7 +18,7 @@ Functional Programming:
  - Also known as SAM(Single Abstract Method) interface.
 Why Functional interface has been introduced?
 
- - Reducing Boilerplate Code with Anonymous Inner Classe
+ - Reducing Boilerplate Code with Anonymous Inner Class
  - Enabling Functional Programming
  - Simplifying Operations with Streams API
 
@@ -41,6 +41,25 @@ Functional Interface with Inheritance:
  
   - Valid functional interface because			- Valid functional interface because			- InValid functional interface because	
     both contains one abstract methods.			  both contains same abstract methods.			  both contains different abstract methods.
+
+
+Built-In Functional Interface:
+
+i) Predicate<T>
+    - Tests a condition on an object and returns a boolean.
+    - boolean test(T t);
+
+ii) Consumer<T>
+    - Takes a single input and performs an operation — no return value.
+    - void accept(T t);
+
+iii) Function<T, R>
+    - Takes one input (T) and returns a result (R).
+    - apply(T t);
+
+iv) Supplier<T> 
+    - Takes no input, returns a result.
+    - T get();
 
 
 

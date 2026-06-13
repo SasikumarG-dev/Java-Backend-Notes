@@ -1,0 +1,27 @@
+Encapsulation:
+ - Encapsulation refers to the bundling of data (variables) and methods (functions) that operate on the data into a single unit, typically a 
+   class. Additionally, encapsulation restricts direct access to some of an object's components, which is often done by making the data private 
+   and providing public methods to access or modify it.
+
+ Key Concepts of Encapsulation:
+   - Private Variables: Data members (fields) of a class are often marked as private to restrict direct access from outside the class.
+   - Public Methods: These are often referred to as "getters" and "setters," and are used to access or modify the private data. For example, a 
+     getter method may return the value of a private variable, while a setter method may set a new value.
+   - Access Control: Through encapsulation, a class controls how its data is accessed or modified by restricting direct access, ensuring that 
+     changes happen in a controlled manner.
+ 
+ Advantages:
+  - Data Integrity and Validation: Encapsulation allows you to enforce validation logic within setter methods, ensuring that the data stored in an 
+    object is always valid and consistent. 
+  - Security: Encapsulation can also be used to make certain fields immutable by providing a getter but no setter. This way, once the object is 
+    created, its state can't be changed. This is .useful for enforcing a "read-only" behavior for certain attributes.
+
+
+ Interview Questions:
+  
+  1. What is the difference between encapsulation and abstraction?
+      - Encapsulation is the concept of hiding the internal state of an object and providing access to it only through controlled methods (getters  
+        and setters). It focuses on restricting access to the data and ensuring it is modified in a controlled manner.
+      - Abstraction, on the other hand, is the concept of hiding the complex implementation details of a system and exposing only the necessary 
+        features or functionalities to the user. While encapsulation is about data hiding, abstraction is about simplifying the interaction with 
+        the object by focusing on relevant details and hiding unnecessary complexity.

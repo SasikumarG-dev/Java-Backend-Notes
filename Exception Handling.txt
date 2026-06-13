@@ -1,0 +1,236 @@
+Exception Handling:
+ - Exception Handling in Java is one of the effective means to handle runtime errors so that the regular flow of the application can be preserved.
+  Hierarchy:
+ java.lang.Object
+   └── java.lang.Throwable
+        ├── java.lang.Error
+        │     ├── OutOfMemoryError
+        │     ├── StackOverflowError
+        │     └── InternalError
+        └── java.lang.Exception
+              ├── java.lang.RuntimeException (Unchecked Exceptions)
+              │     ├── NullPointerException
+              │     ├── ArrayIndexOutOfBoundsException
+              │     ├── ArithmeticException
+              │     └── ClassCastException
+              └── Checked Exceptions
+                    ├── IOException
+                    ├── SQLException
+                    ├── ClassNotFoundException
+                    └── FileNotFoundException
+							Throwable
+							    |
+							    |
+							    |
+                               -------------------------------------------------------------------
+			       |								 |
+			       |								 |
+			     Error							     Exception					
+			       |								 |
+			       |								 |
+     -----------------------------------------------                            ----------------------------------------------------------
+     |			       |		    |				|							  |
+  StackOverflow		OutOfMemory		VirtualMemory                Checked			     			       UnChecked
+										|							  |
+										|							  |
+								-------------------------------- 			-------------------------
+								|		|		|			|			|
+							    IoException      SqlException    ClassNotFound         NullPointer	         IndexOutOfBound
+												Exception
+
+
+  What are Java Exceptions?
+   - In Java, Exception is an unwanted or unexpected event, which occurs during the execution of a program, i.e. at run time, that disrupts the normal flow 
+     of the program’s instructions. Exceptions can be caught and handled by the program.
+
+  Errors:
+   - Errors represent irrecoverable conditions such as Java virtual machine (JVM) running out of memory, memory leaks, stack overflow errors, library 
+     incompatibility, infinite recursion, etc. Errors are usually beyond the control of the programmer, and we should not try to handle errors.
+
+
+		  Type			   Exception							Description
+
+		Checked			IOException						Issues during I/O operations.
+					SQLException						Database access errors.
+					ClassNotFoundException					Class definition not found.
+					FileNotFoundException					File with specified pathname does not exist.
+					ParseException						Parsing operation fails.
+					NoSuchMethodException					Requested method not found.
+					CloneNotSupportedException				Object’s clone method called on non-cloneable class.
+
+		Unchecked		ArithmeticException					Exceptional arithmetic condition (e.g., division by zero).
+					NullPointerException					Null used where an object is required.
+					ArrayIndexOutOfBoundsException				Illegal array index access.
+					ClassCastException					Illegal cast operation.
+					IllegalArgumentException				Illegal or inappropriate argument passed.
+					IllegalStateException					Method invoked at an inappropriate time.
+					IndexOutOfBoundsException				Index of string, array, or collection out of bounds.
+					ConcurrentModificationException				Modification not permitted during iteration.
+
+  Java try-catch block:
+   * Java try block:
+	- Java try block is used to enclose the code that might throw an exception. It must be used within the method.
+	- If an exception occurs at the particular statement in the try block, the rest of the block code will not execute.
+   * Java catch block:
+	- Java catch block catches the exception from the try block. 
+	- However, the good approach is to declare the generated type of exception.
+	- The catch block must be used after the try block only. You can use multiple catch block with a single try block.
+   *Java finally block:
+	- Java finally block is a block used to maintain cleanable code and to deallocate resource such as closing the connection, etc.
+	- Java finally block is always executed whether an exception is handled or not.
+
+  Java Multi-catch block:
+    - A try block can be followed by one or more catch blocks. Each catch block must contain a different exception handler. So, if you have to perform 
+      different tasks at the occurrence of different exceptions, use java multi-catch block.
+    - At a time only one exception occurs and at a time only one catch block is executed.
+    - All catch blocks must be ordered from most specific to most general, i.e. Exception hierarchy.
+
+
+  Java Exception Propagation:
+    - An exception is first thrown from the top of the stack and if it is not caught, it drops down the call stack to the previous method. If not caught 
+      there, the exception again drops down to the previous method, and so on until they are caught or until they reach the very bottom of the call stack. 
+    - Note: By default Unchecked Exceptions are forwarded in calling chain (propagated).
+
+  Java throw keyword:
+    - The Java throw keyword is used to throw an exception explicitly.
+    - We can throw either checked or unchecked exceptions in Java by throw keyword.
+    - It is mainly used to throw a custom exception. We will discuss custom exceptions later in this section.
+    - Used only for Throwable types(Exceptions and Error)
+
+  Java throws keyword:
+    - The Java throws keyword is used to declare an exception. It gives an information to the programmer that there may occur an exception.
+    - Advantage of Java throws keyword
+        Now Checked Exception can be propagated (forwarded in call stack).
+	It provides information to the caller of the method about the exception.
+    - Note: Checked Exceptions should be thrown compulsorily in throws.
+
+
+  Case 1: We have caught the exception i.e. we have handled the exception using try/catch block.
+  Case 2: We have declared the exception i.e. specified throws keyword with the method.
+
+  Important Methods in Java's Exception Class:
+   1. getMessage():
+	- Returns a detailed message about the exception. This message is often provided as a parameter when the exception is created.
+	- Usage: Useful for understanding the specific reason for the exception.
+
+   2. toString():
+	- Returns a short description of the exception, which includes the class name and the detailed message.
+	- Usage: Provides a concise string representation of the exception.
+
+   3. printStackTrace():
+	- Prints the exception and its backtrace (stack trace) to the standard error stream.
+	- Usage: Helps in debugging by showing the sequence of method calls that led to the exception.
+
+   4. getCause():
+	- Returns the underlying cause of the exception if one was provided during the exception's construction, or null if no cause was provided.
+	- Usage: Useful for exception chaining where one exception wraps another as its cause.
+
+   5. initCause(Throwable cause):
+	- Allows you to set the cause of the exception after the exception has been created.
+	- Usage: Used in situations where the cause is not known at the time of creating the exception.
+
+   6. getLocalizedMessage():
+	- Returns a localized version of the message for the exception. By default it calls getMessage() but it can be overridden for different languages.
+	- Usage: Useful for internationalization, when you want the error message to be localized for different languages.
+  
+  Re-throwing exception:
+    - Re-throwing exceptions in Java refers to the practice of catching an exception and then throwing it again, either the same exception or a new one.
+
+  Exception Chaining:
+    - Exception chaining in Java is a technique used to associate one exception (cause) with another.
+    - This is particularly useful when an exception occurs as a result of another exception, and you want to maintain the complete stack trace to provide 
+      more context about the failure.
+    - Eg: 
+
+	public class Main {
+   	 public static void main(String[] args) throws ArithmeticException, IOException {
+   	     try {
+   	         getLeave();
+   	     } catch (NoLeaveException e) {
+   	         System.out.println("Error: " + e.getMessage());
+   	         System.out.println("Caused By: " + e.getCause());
+   	     }
+
+  	  }
+  	  static void getLeave() throws NoLeaveException {
+  	      try {
+            	approvalFromLead();
+  	      } catch (ProjectPressureException ex) {
+        	NoLeaveException noLeaveException = new NoLeaveException("Leave not granted");
+        	noLeaveException.initCause(ex);
+  	      throw noLeaveException;
+       	      }
+ 	   }
+
+    	  static void approvalFromLead() throws ProjectPressureException {
+              throw new ProjectPressureException("No Approval because of project pressure");
+   	   }
+
+	}
+       OUTPUT:
+	Error: Leave not granted
+	Caused By: ProjectPressureException: No Approval because of project pressure
+
+
+  What is a stack trace?
+   - A stack trace is information consisting of names of classes and methods that were invoked right from the start of program execution to the point where 
+     an exception occurred. This is useful to debug where exactly the exception occurred and due to what reasons.
+
+
+  Interview Questions:
+    1. what happens when an exception occurs internally?
+	- Exception object is created and it will check for the respective catch block in the respective method or it do stack unwinding. If keep on checks 
+	  the stack for the respective catch block. If still unhandled, it leads to program termination.
+    2. Is it possible to have a return statement in the catch or finally block? //yes
+    3. Explain an unreachable catch block error.
+	- This can happen when the catch blocks are not ordered correctly. Exception subclasses should come before super classes.
+    4. difference b/w the classes in Exception
+    5. Can we have statements between try, catch and finally blocks? // No
+    6. Mention a few of the best practices in Java exception handling.
+    7. What are the rules we should follow when overriding a method throwing an Exception?
+	- Rule 1: If the parent class method is not throwing any exceptions, then the overridden child class method should not throw checked exceptions. But 
+	  it can throw an unchecked exception.	
+	- Rule 2: If the parent class method is throwing one or more checked exceptions, then the overridden method can throw any unchecked exceptions or 	  any exceptions that are the child classes of parent class exception methods in superclass
+	- Rule 3: If the parent class method has a throws clause having unchecked exceptions, then the overriding child method can throw any number of 
+	  unchecked exceptions even if they are not related to each other.
+    8. Is it possible to throw an Exception inside a Lambda Expression’s body? // yes
+    9. Does the finally block always get executed in the Java program? //Yes unless you give System.exit(0)
+    10. What happens to the exception object after exception handling is complete? // garbage collected
+    11. Is it possible to throw checked exceptions from a static block? //No. Handle in try-catch block
+    12. Why it is always recommended to keep the clean-up activities like closing the I/O resources or DB connections?
+	- It is recommended to keep clean-up activities like closing I/O resources or database (DB) connections in Java because it ensures proper resource 
+	  management and prevents potential issues such as resource leaks, memory exhaustion, or application instability.
+
+
+    13. What happens when exception is thrown at main method?
+	- Java Runtime or JRE terminates the program and prints the stack trace of the exception
+    14. UnReachable catch block error?
+	- When we catch super class exception first and subclasses later we'll get unreachable catch block.
+	- Catch block order must be from child to parent.
+    15. final vs finally vs finalize
+	Feature			final					finally					finalize
+	Usage	   Constant, prevent inheritance/overriding	Ensure cleanup after try-catch		Cleanup before object destruction
+	Type			Keyword					Block					Method
+	When?			Compile-time			 	Runtime				During garbage collection
+	Purpose		    Restriction				    Resource cleanup			Resource cleanup (deprecated)
+    16. can we overload final method?
+	- Yes. Overloading is allowed because it doesn't interfere with the original method's implementation.
+    17. What Is the Difference Between a Checked and an Unchecked Exception?
+	- A checked exception must be handled within a try-catch block or declared in a throws clause; whereas an unchecked exception is not required to be 	  handled nor declared.
+    18. Can You Throw Any Exception Inside a Lambda Expression’s Body?
+	- When using a standard functional interface already provided by Java, you can only throw unchecked exceptions because standard functional 	  	  interfaces do not have a “throws” clause in method signatures. But it custom FI we can throw checked exception because it is designed by our 	 	  convenient.
+    19. Java Exception Handling Best Practices?
+	- Use Specific Exceptions for ease of debugging.
+	- Throw Exceptions Early (Fail-Fast) in the program.
+	- Catch Exceptions late in the program, let the caller handle the exception.
+	- Use Java 7 ARM feature to make sure resources are closed or use finally block to close them properly.
+	- Always log exception messages for debugging purposes.
+	- Use multi-catch block for cleaner close.
+	- Use custom exceptions to throw a single type of exception from your application API.
+	- Follow naming convention, always end with Exception.
+	- Exceptions are costly, so throw it only when it makes sense. Else you can catch them and provide a null or empty response.
+    20. When to Use Try-With-Resources?
+	- File Handling: When you're reading or writing files using classes like FileReader, BufferedReader, FileWriter, PrintWriter, etc.
+	- Database Connections: When you're interacting with a database, using Connection, Statement, PreparedStatement, or ResultSet objects, etc., that 	  			need to be closed after use.
+	- Network Resources: For network communication, using sockets (Socket, ServerSocket), input/output streams (InputStream, OutputStream), etc.
+	- Streams and Readers: When you're working with I/O streams or readers, such as InputStream, OutputStream, Reader, Writer, etc., which require 				       explicit closing.

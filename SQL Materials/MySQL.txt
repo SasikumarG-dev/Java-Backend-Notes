@@ -1,0 +1,219 @@
+MySQL:
+
+  Order of SQL query execution:
+    i) FROM clause (joins and tables are processed first).
+    ii) WHERE clause.
+    iii) GROUP BY clause.
+    iv) HAVING clause.
+    v) SELECT clause (columns are selected and aliases are assigned here).
+    vi) ORDER BY clause
+
+  Transaction:
+    - In the database world, a transaction is a sequence of one or more SQL statements that are executed as a single unit of work.
+    - Transactions allow you to ensure the integrity of data by enabling a set of operations to be either fully completed or fully rolled back in case of an 
+      error.
+    - By default, when you execute an SQL statement, MySQL automatically wraps it in a transaction and commits the transaction automatically.
+
+  Commit:
+    - COMMIT statement is used to save all the changes made during the current transaction to the database permanently.
+    - It ensures that once the transaction is committed, any changes to the data are stored permanently in the database and are visible to other users.
+    - Before COMMIT, changes in a transaction are isolated and visible only to the session (or connection) that made them. Other sessions or users cannot 
+      see these uncommitted changes; they only see the data as it was before the transaction began.
+
+  Prepared Statement:
+    - MySQL prepared statements allow you to write SQL queries with placeholders for parameters, and then bind values to those parameters at runtime.
+    - They can help prevent SQL injection attacks and optimize query execution.
+
+  Union:
+    - MySQL UNION operator allows you to combine two or more result sets of queries into a single result set.
+    - Eg:
+	select contactFirstName, contactLastName, 'Customers' as TYPE from customers
+	union
+	select firstName, lastName, 'Employees' as TYPE from employees
+
+  Join vs Union:
+    - A JOIN combines result sets horizontally, a UNION appends result set vertically.
+
+  Case Statement:
+    - CASE statement is used to apply conditional logic in SQL queries.
+    - It allows you to return different values based on specific conditions, making it useful for transforming data, categorizing, or simplifying complex 
+      SELECT queries.
+    - Eg:
+	SELECT 
+ 	   order_id,
+  	  status_code,
+  	  CASE status_code
+   	     WHEN 1 THEN 'Pending'
+   	     WHEN 2 THEN 'Shipped'
+   	     WHEN 3 THEN 'Delivered'
+   	     ELSE 'Unknown Status'
+  	  END AS status
+	FROM orders;
+
+
+  Stored Procedures:
+    - Stored procedures are named SQL routines stored in a database that execute a defined set of operations when called.
+    - Performance: Reduce network overhead by running logic directly in the database.
+    - Reusability: Once created, they can be called multiple times from different applications.
+   Basic Syntax
+
+	DELIMITER //
+
+	CREATE PROCEDURE GetCustomerById(IN customerId INT)
+	BEGIN
+  	  SELECT * FROM customers WHERE id = customerId;
+	END //
+
+	DELIMITER ;
+
+    To call this procedure:
+	CALL GetCustomerById(5);
+
+   Parameters:
+     - Typically, stored procedures have parameters, making them more useful and reusable.
+
+    i) IN parameters
+	- IN is the default mode. When defining an IN parameter in a stored procedure, the calling program must pass an argument to the stored procedure.
+        - If you change the value of the IN parameter inside the stored procedure, its original value remains unchanged after the stored procedure ends.
+
+    ii) OUT parameters
+	- The value of an OUT parameter can be modified within the stored procedure, and its updated value is then passed back to the calling program.
+	- Note that stored procedures cannot access the initial value of the OUT parameter when they begin.
+        - Eg:
+		DELIMITER $$
+
+		CREATE PROCEDURE GetOrderCountByStatus (
+			IN  orderStatus VARCHAR(25),
+			OUT total INT
+		)
+		BEGIN
+			SELECT COUNT(orderNumber)
+			INTO total
+			FROM orders
+			WHERE status = orderStatus;
+		END$$
+
+		DELIMITER ;
+
+	  To call the above procedure:
+		CALL GetOrderCountByStatus('Shipped',@total);
+		SELECT @total;
+
+    iii) INOUT parameters
+	- An INOUT  parameter is a combination of IN and OUT parameters. This means that the calling program may pass the argument, and the stored procedure 	  can modify the INOUT parameter and pass the new value back to the calling program.
+
+
+  Stored Function:
+   - A stored function in SQL is a reusable database object that encapsulates a set of SQL statements.
+   - Unlike stored procedures, stored functions are intended to return a single value and are designed to be used within SQL expressions.
+   - You can use a stored function to calculate a value and directly incorporate it in your query, something not possible with stored procedures.
+   - If you need specific calculations (e.g., tax, discount, or metrics), functions make these reusable.
+   - They are restricted from modifying database data, making them ideal for read-only operations.
+   - Eg:
+	DELIMITER //
+	CREATE FUNCTION calculate_discount(price DECIMAL(10,2))
+	RETURNS DECIMAL(10,2)
+	DETERMINISTIC
+	BEGIN
+	    DECLARE discount DECIMAL(10,2);
+ 	   SET discount = price * 0.10; -- Calculating 10% discount
+  	  RETURN price - discount;
+	END;
+	//
+	DELIMITER ;
+
+	SELECT product_name, calculate_discount(product_price) AS discounted_price
+	FROM products;
+
+
+  Differences Between Stored Functions and Stored Procedures:
+	Aspect				Stored Function				Stored Procedure
+	Return Value		   Must return a single value		   May or may not return a value
+	Usage in Queries	  Can be used in SQL expressions	   Cannot be directly used in expressions
+	Purpose			  Typically used for calculations	  Often used for complex business logic
+	Data Modification	  Limited ability to modify data	   Can modify data using INSERT, UPDATE, etc.
+
+
+  Declaring variables:
+   DECLARE total INT DEFAULT 0;
+   SET total = 10;
+
+
+  IF Statement:
+   - The IF statement allows you to evaluate one or more conditions and execute the corresponding code block if the condition is true.
+   - Note that MySQL has an IF() function that differs from the IF statement described in this tutorial.
+   - The IF statement has three forms:
+	i) IF...THEN statement: Evaluate one condition and execute a code block if the condition is true.
+	ii) IF...THEN...ELSE statement: Evaluate one condition and execute a code block if the condition is true; otherwise, execute another code block.
+	iii) IF...THEN...ELSEIF...ELSE statement: Evaluate multiple conditions and execute a code block if a condition is true. If all conditions are false, 	     execute the code block in the ELSE branch.
+   - Eg:
+	DELIMITER $$
+
+	CREATE PROCEDURE GetCustomerLevel(
+	    IN  pCustomerNumber INT, 
+	    OUT pCustomerLevel  VARCHAR(20))
+	BEGIN
+ 	   DECLARE credit DECIMAL DEFAULT 0;
+
+ 	   SELECT creditLimit 
+  	  INTO credit
+  	  FROM customers
+  	  WHERE customerNumber = pCustomerNumber;
+
+  	  IF credit > 50000 THEN
+ 	       SET pCustomerLevel = 'PLATINUM';
+  	  ELSEIF credit <= 50000 AND credit > 10000 THEN
+  	      SET pCustomerLevel = 'GOLD';
+  	  ELSE
+  	      SET pCustomerLevel = 'SILVER';
+  	  END IF;
+	END $$
+
+	DELIMITER ;
+
+
+
+  TRIGGER statement:
+    - A trigger is a set of SQL statements, that is executed automatically in response to a specified event including INSERT, UPDATE, or DELETE on a       
+      particular table.
+    - Use before triggers for validation and modification before changes are committed.
+    - Use after triggers for logging, maintaining related data, or executing additional actions after changes.
+    - Syntax:
+	CREATE TRIGGER trigger_name
+	{BEFORE | AFTER} {INSERT | UPDATE | DELETE}
+	ON table_name
+	FOR EACH ROW
+	BEGIN
+   	 -- Trigger body (SQL statements)
+	END;
+
+    - The following table illustrates the availability of the OLD and NEW modifiers:
+		Trigger Event		OLD		NEW
+		  INSERT		No		Yes
+		  UPDATE		Yes		Yes
+		  DELETE		Yes		No
+    - Ex:
+	DELIMITER //
+	CREATE TRIGGER customer_update_trigger
+	AFTER UPDATE ON customers
+	FOR EACH ROW
+	BEGIN
+	INSERT INTO customer_update_logs(customer_id, message)
+	VALUES (new.customerNumber, concat('updated country ',new.country));
+	END;
+	//
+	DELIMITER ;
+
+    - To drop a trigger: DROP TRIGGER before_billing_update;
+
+    When Teams Might Consider Using Triggers
+     * Simple Use Cases:
+	- For straightforward scenarios where the logic is simple (e.g., logging changes, enforcing data integrity), triggers can be a quick and effective 	  solution.
+
+    When Teams Might Avoid Using Triggers
+     * Complex Applications:
+	- For larger and more complex applications, teams often prefer to handle business logic in the application layer where it is easier to maintain, 	  test, and debug.
+     * Microservices Architecture:
+	- In microservices, triggers can introduce tight coupling between services and the database. It’s often better to use event-driven designs or 	  	  messaging systems to maintain loose coupling.
+     * Scaling and Migration:
+	- Organizations looking to scale or that anticipate needing to change database technologies or structures may opt for more flexible solutions that 	  do not rely on triggers.

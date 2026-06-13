@@ -1,0 +1,38 @@
+Polymorphism:
+ - Polymorphism in Java is a concept by which we can perform a single action in different ways. Polymorphism is derived from 2 Greek words: poly 
+   and morphs. The word "poly" means many and "morphs" means forms. So polymorphism means many forms.
+
+  Advantages of Polymorphism
+    1. Code Reusability
+	- Polymorphism allows methods in subclasses to override methods in their superclass, enabling code reuse and maintaining a consistent 
+	  interface across related classes.
+
+    2. Flexibility and Extensibility
+	- Polymorphism allows subclasses to provide their own implementations of methods defined in the superclass, making it easier to extend and 	  customize behavior without modifying existing code.
+
+    3. Dynamic Method Invocation:
+	- Polymorphism enables dynamic method invocation, where the method called is determined by the actual object type at runtime, providing 
+	  flexibility in method dispatch.
+
+    4. Interface Implementation:
+	- Interfaces in Java allow multiple classes to implement the same interface with their own implementations, facilitating polymorphic 	  	  behavior and enabling objects of different classes to be treated interchangeably based on a common interface.
+
+    5. Method Overloading:
+	- Polymorphism is also achieved through method overloading, where multiple methods with the same name but different parameter lists can 	  be defined within a class or its subclasses, enhancing code readability and allowing flexibility in method invocation based on 	  	  parameter types.
+
+   Types of Polymorphism
+     1. Compile Time Polymorphism in Java
+	 - The methods in method overloading must have the same name but differ in the quantity or kind of parameters.
+         - Based on the inputs passed in during the method call, the compiler chooses the suitable overloaded method when a method is called.
+	 - In the event of a perfect match, that procedure is used. If not, the compiler uses broadening to find the closest match depending on 	   the parameter types, which is why it's called "compile-time polymorphism.
+
+     2. Runtime Polymorphism in Java
+	 - Runtime polymorphism or Dynamic Method Dispatch is a process in which a call to an overridden method is resolved at runtime rather 	  	   than compile-time.
+	 - In this process, an overridden method is called through the reference variable of a superclass. The determination of the method to be 	   called is based on the object being referred to by the reference variable.
+
+    Upcasting:
+     - If the reference variable of Parent class refers to the object of Child class, it is known as upcasting.
+     - For example:
+	class A{}  
+	class B extends A{}  
+	A a=new B();//upcasting  

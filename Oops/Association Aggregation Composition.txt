@@ -1,0 +1,67 @@
+Association:
+ - A general relationship between two independent classes where one object uses another.
+ - It can be one-to-one, one-to-many, many-to-one, or many-to-many.
+ - No ownership — both classes can exist independently.
+ 
+ Eg: Person uses Car — this is Association.
+
+    class Person {
+        String name;
+        void travel(Car car) {
+            car.drive();
+        }
+    }
+
+    class Car {
+        void drive() {
+            System.out.println("Car is being driven");
+        }
+    }
+
+
+
+Aggregation:
+ - A special form of association where one class has a reference to another.
+ - It implies a "has-a" relationship, but with loose coupling and no strong ownership.
+ - If the parent is destroyed, the child can still exist independently.
+
+ Eg:
+    class Department {
+        String name;
+        List<Employee> employees;  // Aggregation
+    }
+
+    class Employee {
+        String name;
+    }
+  A Department has multiple Employees, but if the department is deleted, employees can still exist.
+
+
+
+Composition:
+ - A restricted form of aggregation with strong ownership.
+ - If the parent object is destroyed, child objects are also destroyed.
+ - Tight coupling between classes.
+
+ Eg:
+
+    class House {
+        private Room room;
+
+        public House() {
+            this.room = new Room(); // Room can't exist without House
+        }
+    }
+
+    class Room {
+    }
+   House owns the Room. If House is destroyed, Room will be too.
+
+
+
+
+
+Concept		Type		Coupling	Ownership		Object Lifespan	
+Association	Relationship	Loose		No ownership		Independent	
+Aggregation	"Has-a"		Loose		Weak ownership		Child can outlive parent	
+Composition	"Owns-a"	Tight		Strong			Child dies with parent

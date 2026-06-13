@@ -132,8 +132,8 @@ Map :
 
   
   Capacity
-   -  The capacity of a HashMap refers to the number of buckets available to store entries. Each bucket stores multiple entries in case of collisions.
-   -  When you create a HashMap, you can specify its initial capacity. If not specified, the default initial capacity is 16 buckets.
+   - The capacity of a HashMap refers to the number of buckets available to store entries. Each bucket stores multiple entries in case of collisions.
+   - When you create a HashMap, you can specify its initial capacity. If not specified, the default initial capacity is 16 buckets.
    - If the number of entries in the HashMap exceeds a certain threshold (determined by the load factor), it typically doubles (i.e., from 16 to 32).
    - When the capacity is increased, the HashMap must rehash all of the keys and redistribute them across the new, larger array of buckets. This process can 
      temporarily slow down performance, but it's essential for keeping retrieval and insertion efficient.
